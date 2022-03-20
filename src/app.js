@@ -57,12 +57,13 @@ app.get("/", (req, res) => {
 
 app.use("/api/", api);
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
 
 // Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..','client', 'build', 'intdex.html'))
 })
+
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 module.exports = app;
