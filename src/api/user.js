@@ -53,6 +53,20 @@ router.get("/getuser/:username", async (req,res) => {
   }
 })
 
+router.get("/getorganiser/:username", async(req,res) => {
+  const response = await User.findOne({
+    where:{
+      username: req.params.username
+    }
+  }).catch(err => console.log("Error getting organiser info", err))
+  if(response){
+    res.status(200).json(response)
+  }
+  if(response===null){
+    res.status(200).json({"message": "user not exist"});
+  }
+})
+
 
 router.get("/userwithevents/:username", async (req,res) => {
   const response = await User.findOne({
@@ -61,7 +75,7 @@ router.get("/userwithevents/:username", async (req,res) => {
     },
     include: Event
   }).catch(err => console.log("Error getting user info", err))
-  console.log("Got the user/ or not", response);
+  console.log("Got the user or not", response);
   if(response){
     res.status(200).json(response)
   }
