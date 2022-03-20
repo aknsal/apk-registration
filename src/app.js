@@ -31,6 +31,7 @@ app.use(morgan("dev"));
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
+      defaultSrc: ["'self'"],
       imageSrc:["'self'","https://res.cloudinary.com"],
     },
   })
