@@ -28,14 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(morgan("dev"));
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      imageSrc:["'self'","https://res.cloudinary.com"],
-    },
-  })
-);
+app.use(helmet());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 
