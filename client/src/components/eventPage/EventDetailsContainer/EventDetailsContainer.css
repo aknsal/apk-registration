@@ -1,0 +1,13 @@
+.event-details-container-paper {
+  flex-grow: 5;
+  padding: 0rem 0rem;
+  text-align: center;
+}
+
+.event-details-container-heading {
+  padding: 3rem 0 1rem 0;
+}
+
+.event-details-container-items {
+  padding-bottom: 1.8rem;
+}

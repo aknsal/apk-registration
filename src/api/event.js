@@ -33,7 +33,7 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
     const image1 = image1URL;
     const image2 = image2URL;
 
-    const inputDetails = await axios.get("http://localhost:5000/api/getinputs").catch((err) => console.log("Error Ocuured while fetching inputs", err))
+    const inputDetails = await axios.get("/api/getinputs").catch((err) => console.log("Error Ocuured while fetching inputs", err))
 
     if(inputDetails && inputDetails.data){
         const newEvent = new Event({eventName, date, organiser1,organiser2,organiser3, rounds, totalParticipants, about, prizes, image1, image2, category, eventCode,teamSize});

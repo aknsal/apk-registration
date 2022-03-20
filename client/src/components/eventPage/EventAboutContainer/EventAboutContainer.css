@@ -1,0 +1,9 @@
+.event-about-container {
+  flex-grow: 20;
+  padding-top: 2rem;
+  padding-right: 2rem;
+}
+
+.event-about-container-section {
+  padding-bottom: 2rem;
+}

@@ -1,0 +1,105 @@
+.add-event-super-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0rem 2rem;
+    
+  }
+
+.add-event-container{
+    min-width: 800px;
+    padding: 2rem;
+    margin: 1.5rem;
+    max-width: 1200px;
+}
+
+.add-event-input-team-size{
+    width: 48%;
+}
+
+.add-event-input-rounds{
+    width: 48%;
+}
+
+.add-event-input-category{
+    width: 48%;
+}
+
+.add-event-input-date{
+    width: 48%;
+}
+
+.add-event-submit-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+@media (max-width: 850px){
+    .add-event-container{
+        min-width:auto;
+    }
+    .add-event-input-team-size{
+        width: 100%;
+    }
+    
+    .add-event-input-rounds{
+        width: 100%;
+    }
+}
+
+.add-event-container-heading {
+    padding-top: 0;
+}
+
+
+
+.add-event-input-two{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.upload-button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* .add-event-image-input{
+    padding: 2rem;
+
+} */
+
+.upload-button-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-button{
+    max-width: 48%;
+    margin-bottom: 2rem;
+}
+
+.upload-image-1-container{
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.add-event-organizer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

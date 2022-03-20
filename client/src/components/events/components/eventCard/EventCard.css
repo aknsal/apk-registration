@@ -1,0 +1,4 @@
+.card-media-overlay {
+  background: linear-gradient(#e66465, #9198e5);
+  z-index: 20;
+}

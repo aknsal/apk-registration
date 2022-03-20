@@ -1,0 +1,25 @@
+.event-list-container {
+  flex-grow: 1;
+  margin: 1rem 4rem 2rem;
+}
+
+.event-list-container-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-list-container-heading {
+  padding-top: 0;
+}
+
+.event-list-container-add-event{
+  padding-left: 8px;
+}
+
+.event-list-container
+  .event-list-category-section
+  .event-list-category-heading {
+  padding-top: 1rem;
+}

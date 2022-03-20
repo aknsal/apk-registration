@@ -1,0 +1,39 @@
+.profile-super-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0rem 2rem;
+}
+
+.profile-container{
+    max-width: 1000px;
+    padding: 2rem;
+    margin: 1.5rem;
+}
+
+.profile-inputx2{
+    width: 48%;
+}
+
+.profile-inputx2-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 850px){
+    .profile-container{
+        min-width:auto;
+    }
+    .profile-inputx2{
+        width: 100%;
+    }
+}
+
+.profile-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
