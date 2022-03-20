@@ -20,6 +20,13 @@ const api = require("./api");
 const passport = require("passport");
 
 const app = express();
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; font-src 'self'; img-src 'self' https://lh3.googleusercontent.com https://res.cloudinary.com; script-src 'self'; style-src 'self'; frame-src 'self'"
+  );
+  next();
+});
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname,'..', 'client', 'build')))
 
