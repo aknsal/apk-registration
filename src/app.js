@@ -19,9 +19,8 @@ const api = require("./api");
 const passport = require("passport");
 
 const app = express();
-
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../client/build')))
+app.use(express.static(path.join(__dirname,'..', 'client', 'build')))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -62,7 +61,7 @@ app.use(middlewares.errorHandler);
 
 // Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../client/build/index.html'))
+  res.sendFile(path.join(__dirname, '..','client', 'build', 'intdex.html'))
 })
 
 module.exports = app;
