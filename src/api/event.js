@@ -33,9 +33,9 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
     const image1 = image1URL;
     const image2 = image2URL;
 
-    const inputDetails = await axios.get("/api/getinputs").catch((err) => console.log("Error Ocuured while fetching inputs", err))
+    const inputDetails = await Input.findAll().catch(err => console.log("Error getting inputs",err));
 
-    if(inputDetails && inputDetails.data){
+    if(inputDetails){
         const newEvent = new Event({eventName, date, organiser1,organiser2,organiser3, rounds, totalParticipants, about, prizes, image1, image2, category, eventCode,teamSize});
         const savedEvent = await newEvent.save().catch((err) => {
             console.log("Error saving event: ",err);
