@@ -4,7 +4,7 @@ const { isUserAuthenticated } = require("../middlewares/auth");
 
 const router = express.Router();
 
-const successLoginUrl = "http://localhost:3000/login/success";
+const successLoginUrl = "https://apk-registration.herokuapp.com/";
 const errorLoginUrl = "http://localhost:3000/login/error";
 
 router.get(
