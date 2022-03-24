@@ -32,7 +32,11 @@ const theme = createTheme({
         'Helvetica',
         'sans-serif'
       ].join(','),
-    }
+    },
+    fontFamily:[
+      'poppins',
+      'sans-serif'
+    ].join(','),
   }
 });
 
