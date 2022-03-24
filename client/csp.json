@@ -21,7 +21,8 @@
       "https://res.cloudinary.com"
     ],
     "connect-src": [
-      "'self'"
+      "'self'",
+      "https://res.cloudinary.com"
     ]
   }
 }
