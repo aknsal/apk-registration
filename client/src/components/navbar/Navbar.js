@@ -79,6 +79,21 @@ const ResponsiveAppBar = () => {
     }
   }
 
+  const handleLogout = async () => {
+    const response = await axios.get("/api/logout", { withCredentials: true }).catch((err) => {
+      console.log("Some Error occurred logging out", err);
+    });
+
+    if (response && response.data) {
+      console.log("User Logged Out: ", response.data);
+      if(response.data.message==="Logged Out"){
+
+        dispatch(setIsAuthenticated(false));
+        dispatch(setAuthUser(null));
+      }
+    }
+  }
+
   return (
     <AppBar position="static" color='secondary'>
       <Container maxWidth="xl">
@@ -177,11 +192,12 @@ const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting.link}  component={Link} to={setting.link} >
-                    <Typography textAlign="center">{setting.name}</Typography>
+                  <MenuItem component={Link} to={"/profile"} >
+                    <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
-                ))}
+                  <MenuItem onClick={handleLogout} >
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
               </Menu>
             </Box>
             :
