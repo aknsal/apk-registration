@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
@@ -17,7 +18,7 @@ export default function CustomizedSnackbars({duration}) {
   };
 
   return (
-      <Snackbar autoHideDuration={duration} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={duration} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           This is a success message!
         </Alert>
