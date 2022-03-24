@@ -61,7 +61,7 @@ app.use("/api/", api);
 
 // Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..','client', 'build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '..','client', 'build', 'index.html'));
 })
 
 app.use(middlewares.notFound);
