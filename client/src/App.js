@@ -47,8 +47,8 @@ function App() {
             <Route path="login/success" element={<LoginSuccess />}/>
             <Route path="Welcome" element={<Welcome />}/>
             {user && user.isAdmin? <Route path="/addevent" element={<AddEventPage />}/> :null }
-            <Route path="/dashboard" element={<Dashboard />}/>
-            <Route path="/profile" element={<ProfilePage />}/>
+            {user ? <Route path="/dashboard" element={<Dashboard />}/> :null }
+            {user ? <Route path="/profile" element={<ProfilePage />}/> :null }
           </Routes>
     </Router>
       </ThemeProvider>

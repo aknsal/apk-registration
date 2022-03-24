@@ -51,13 +51,11 @@ const ResponsiveAppBar = () => {
 
   const fetchAuthUser = async () => {
     const response = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
-      console.log("Not properly authenticated", err);
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));
     });
 
     if (response && response.data) {
-      console.log("User: ", response.data);
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(response.data));
     }
