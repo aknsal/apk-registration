@@ -47,7 +47,14 @@ export default function EventPage() {
         <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
       </div>
     </div>
-    : null
+    : <div className="event-page-container-layout">
+    <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+    <div className='event-page-container-layout-sub'>
+      <EventAboutContainer eventDetails={eventDetails} />
+      <div className='event-page-container-layout-space'></div>
+      <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
+    </div>
+  </div>
     }
       
     </div>
