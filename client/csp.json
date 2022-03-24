@@ -8,10 +8,13 @@
     ]
   },
   "prod": {
-    "default-src": "'self'",
+    "default-src": [
+      "'self'"
+    ],
     "style-src": [
       "'self'",
-      "'unsafe-inline'"
+      "'unsafe-inline'",
+      "https://fonts.googleapis.com"
     ],
     "img-src": [
       "'self'",
