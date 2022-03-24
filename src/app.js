@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
 const path = require('path');
+const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const cookieSession = require("cookie-session");
@@ -27,6 +28,17 @@ app.use(express.static(path.join(__dirname,'..', 'client', 'build')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+app.use(expressCspHeader({
+  directives: {
+      'default-src': [SELF],
+      'script-src': [SELF, INLINE],
+      'style-src': [SELF,INLINE],
+      'img-src': ['data:', 'https://lh3.googleusercontent.com'],
+      'worker-src': [NONE],
+      'block-all-mixed-content': false
+  }
+}));
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
