@@ -28,8 +28,10 @@ const theme = createTheme({
   typography:{
     h2:{
       fontFamily:[
-        'Quicksand'
-      ]
+        'Quicksand',
+        'Helvetica',
+        'sans-serif'
+      ].join(','),
     }
   }
 });
