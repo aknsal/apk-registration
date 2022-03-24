@@ -26,6 +26,10 @@
     "connect-src": [
       "'self'",
       "https://api.cloudinary.com"
+    ],
+    "font-src": [
+      "'self",
+      "https://fonts.gstatic.com"
     ]
   }
 }
