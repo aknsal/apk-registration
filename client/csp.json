@@ -22,7 +22,7 @@
     ],
     "connect-src": [
       "'self'",
-      "https://res.cloudinary.com"
+      "https://api.cloudinary.com"
     ]
   }
 }
