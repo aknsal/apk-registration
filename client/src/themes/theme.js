@@ -25,6 +25,13 @@ const theme = createTheme({
   shape: {
     borderRadius: 1,
   },
+  typography:{
+    h2:{
+      fontFamily:[
+        'Quicksand'
+      ]
+    }
+  }
 });
 
 export default theme;
