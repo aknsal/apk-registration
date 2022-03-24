@@ -124,4 +124,13 @@ router.get("/check/user/event/reg/:username/:eventCode",async(req,res) => {
   }
 })
 
+
+router.get('/logout', isUserAuthenticated, function(req, res){
+  console.log("logging out");
+  console.log(req.user);
+  req.logout();
+  res.status(200).json({"message":"Logged Out"});
+});
+
+
 module.exports = router;
