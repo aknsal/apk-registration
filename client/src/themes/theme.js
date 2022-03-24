@@ -25,15 +25,15 @@ const theme = createTheme({
   shape: {
     borderRadius: 1,
   },
-  // typography:{
-  //   h2:{
-  //     fontFamily:[
-  //       'Quicksand',
-  //       'Helvetica',
-  //       'sans-serif'
-  //     ].join(','),
-  //   }
-  // }
+  typography:{
+    h2:{
+      fontFamily:[
+        'Quicksand',
+        'Helvetica',
+        'sans-serif'
+      ].join(','),
+    }
+  }
 });
 
 export default theme;
