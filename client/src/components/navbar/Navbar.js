@@ -58,6 +58,7 @@ const ResponsiveAppBar = () => {
     });
 
     if (response && response.data) {
+      console.log("user state: ", user);
       if(user==null){
         setShowLoginMessage(true);
       }
