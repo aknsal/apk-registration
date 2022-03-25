@@ -101,11 +101,6 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="static" color='secondary'>
-      {
-                showLoginMessage?
-                <CustomizedSnackbars duration="2000" />
-                :null
-      }
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
