@@ -6,6 +6,7 @@ import EventDetailsContainer from '../../components/eventPage/EventDetailsContai
 import axios from "axios";
 import "./EventPage.css"
 import { useSelector } from 'react-redux'
+import { Grid } from '@mui/material'
 
 export default function EventPage() {
   let eventCodeOb = useParams();
@@ -40,20 +41,38 @@ export default function EventPage() {
     <div className='event-page-container-layout-super'>
       {(eventDetails && user) ?  
       <div className="event-page-container-layout">
-      <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered} />
-      <div className='event-page-container-layout-sub'>
-        <EventAboutContainer eventDetails={eventDetails} />
-        <div className='event-page-container-layout-space'></div>
-        <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
-      </div>
+      <Grid container spacing={4} >
+          <Grid item lg={12}>
+
+          <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+          </Grid>
+          <Grid item lg={12}>
+          <EventAboutContainer eventDetails={eventDetails} />
+          </Grid>
+
+          <Grid item lg={12}>
+          <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
+          </Grid>
+
+      </Grid>
     </div>
     : <div className="event-page-container-layout">
-    <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
-    <div className='event-page-container-layout-sub'>
-      <EventAboutContainer eventDetails={eventDetails} />
-      <div className='event-page-container-layout-space'></div>
-      <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
-    </div>
+      <Grid container spacing={4} >
+          <Grid item lg={12}>
+
+          <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+          </Grid>
+          <Grid item lg={12}>
+          <EventAboutContainer eventDetails={eventDetails} />
+          </Grid>
+
+          <Grid item lg={12}>
+          <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
+          </Grid>
+
+      </Grid>
+      
+      
   </div>
     }
       
