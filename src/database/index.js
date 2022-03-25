@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,
-        ca: fs.readFileSync('../certificates/ca-certificate.crt').toString(),
+        ca: fs.readFileSync(__dirname + '../certificates/ca-certificate.crt').toString(),
       },
     }
   },
