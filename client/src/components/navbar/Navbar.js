@@ -19,14 +19,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setAuthUser, setIsAuthenticated } from '../../redux/appSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import CustomizedSnackbars from '../snackbar/Snackbar';
 const pages = ['Dashboard', 'Events'];
 const settings = [{name: 'Profile', link:"/profile"}, {name : 'Dashboard', link:"/dashboard"}, {name : 'Logout', link:"/api/logout"}];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [showLoginMessage, setShowLoginMessage] = React.useState(false);
   const user = useSelector(state => state.app.authUser);
 
   const handleOpenNavMenu = (event) => {
@@ -58,13 +56,9 @@ const ResponsiveAppBar = () => {
     });
 
     if (response && response.data) {
-      console.log("user state: ", user);
-      if(user===null){
-        console.log("show message changed");
-        setShowLoginMessage(true);
-      }
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(response.data));
+      
     }
   }
 
@@ -204,8 +198,6 @@ const ResponsiveAppBar = () => {
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
               </Menu>
-              
-              
             </Box>
             :
             <GoogleButton onClick={redirectToGoogleSSO} />
