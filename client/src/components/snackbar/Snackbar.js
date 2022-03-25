@@ -23,5 +23,5 @@ export default function CustomizedSnackbars({duration}) {
           This is a success message!
         </Alert>
       </Snackbar>
-  );
+  ); 
 }
