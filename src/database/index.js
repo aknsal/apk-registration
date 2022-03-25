@@ -9,7 +9,10 @@ const sequelize = new Sequelize(
     port:"25060",
     dialect: "mysql",
     ssl:true,
-  }
+    dialectOptions: {
+      connectTimeout: 60000
+    }
+  },
 );
 
 sequelize.sync({alter:true});
