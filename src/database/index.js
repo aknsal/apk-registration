@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+const fs = require('fs');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -10,7 +11,10 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     ssl:true,
     dialectOptions: {
-      connectTimeout: 60000
+      ssl: {
+        rejectUnauthorized: false,
+        ca: fs.readFileSync('../certificates/ca-certificate.crt').toString(),
+      },
     }
   },
 );
