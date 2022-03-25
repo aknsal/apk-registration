@@ -107,6 +107,7 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
 });
 
 router.get("/getevents", async (req,res) => {
+    console.log("Getting Events....");
     const allEvents = await Event.findAll({include:Input}).catch((err)=>{
         console.log("Server Error, Cannot get Events");
         res.status(500).json({message:"Cannot get Events"});
