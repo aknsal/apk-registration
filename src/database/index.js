@@ -5,7 +5,8 @@ const sequelize = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASS,
   {
-    host: "sql6.freemysqlhosting.net",
+    host: "apk-db-do-user-4581189-0.b.db.ondigitalocean.com",
+    port:"25060",
     dialect: "mysql",
   }
 );
