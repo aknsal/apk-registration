@@ -9,9 +9,10 @@ const sequelize = new Sequelize(
     host: "apk-db-do-user-4581189-0.b.db.ondigitalocean.com",
     port:"25060",
     dialect: "mysql",
+    ssl:true,
     dialectOptions: {
       ssl: {
-        rejectUnauthorized: false,
+        ssl:true,
         ca: fs.readFileSync(__dirname + '/../certificates/ca-certificate.crt').toString(),
       },
     }
