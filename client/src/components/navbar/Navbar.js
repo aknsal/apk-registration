@@ -59,7 +59,8 @@ const ResponsiveAppBar = () => {
 
     if (response && response.data) {
       console.log("user state: ", user);
-      if(user==null){
+      if(user===null){
+        console.log("show message changed");
         setShowLoginMessage(true);
       }
       dispatch(setIsAuthenticated(true));
