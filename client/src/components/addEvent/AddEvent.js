@@ -111,6 +111,7 @@ export default function AddEvent() {
     const [imagePublicId2, setImagePublicId2] = useState('');
     const [imageLoad2, setImageLoad2] = useState(false);
     const [inputData, setInputData] = useState([]);
+    const [submitLoaderFinal, setSubmitLoaderFinal ] = useState(false);
 
     const [whatsappNumber, setWhatsappNumber] = useState(false);
     const [githubUsername, setGithubUsername] = useState(false);
@@ -254,6 +255,7 @@ export default function AddEvent() {
 
 
     const handleSubmit = async () => {
+        setSubmitLoaderFinal(true);
         console.log(eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername);
         const response = await axios.post("/api/addevent", { eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername }, { withCredentials: true }).catch((err) => {
             console.log("There was a problem adding event", err);
@@ -262,6 +264,7 @@ export default function AddEvent() {
             console.log("Event added successfully", response);
             navigate("/events");
         }
+        setSubmitLoaderFinal(false);
     }
 
     return (
@@ -430,7 +433,7 @@ export default function AddEvent() {
 
 
                 <div className='add-event-submit-button-container'>
-                    <Button variant='contained' color='success' size='large' onClick={handleSubmit} > Submit </Button>
+                    <Button variant='contained' color='success' size='large' onClick={handleSubmit} > Submit {submitLoaderFinal ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null} </Button>
                 </div>
             </Paper>
         </div>

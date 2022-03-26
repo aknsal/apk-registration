@@ -149,7 +149,7 @@ export default function Profile() {
 
 
 
-    // navigate("/events");
+    navigate("/events");
   }
 
 
