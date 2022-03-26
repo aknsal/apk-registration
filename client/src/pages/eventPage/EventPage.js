@@ -56,7 +56,7 @@ export default function EventPage() {
           <Grid container spacing={4} >
               <Grid item lg={12}>
     
-              <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+              <EventContainerMain xs={12} lg={12} eventDetails={eventDetails} isRegistered={isRegistered}  />
               </Grid>
               <Grid item xs={12} lg={9}>
               <EventAboutContainer eventDetails={eventDetails} />
@@ -72,7 +72,7 @@ export default function EventPage() {
           <Grid container spacing={4} >
               <Grid item lg={12}>
     
-              <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+              <EventContainerMain xs={12} lg={12} eventDetails={eventDetails} isRegistered={isRegistered}  />
               </Grid>
               <Grid item xs={12} lg={9}>
               <EventAboutContainer eventDetails={eventDetails} />

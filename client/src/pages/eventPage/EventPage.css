@@ -7,6 +7,11 @@
   max-width: 1200px;
   flex-grow: 1;
 }
+@media screen and (max-width: 480px) {
+  .event-page-container-layout {
+    margin: 2rem 1rem 3rem;
+  }
+}
 
 .event-page-container-layout-sub {
   display: flex;
