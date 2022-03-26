@@ -24,7 +24,11 @@ export default function RegisteredEvents() {
 
               (user &&
                 user.Events.length===0 ? 
+                <div>
+                  <br/>
+                  <br/>
                 <Typography > You have registered for no Events. Go an register to some exciting Events <Typography component={Link} to={"/events"}> here </Typography>  </Typography>
+                </div>
                 :
                 user.Events.map((event) => 
                   
