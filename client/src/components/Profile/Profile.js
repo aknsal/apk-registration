@@ -44,7 +44,7 @@ export default function Profile() {
 
   let delayTimer = null;
   let isValid = false;
-  const checkAvailabilityUsernameTimeout = async (line) => {
+  const checkAvailabilityUsernameTimeout = async (username) => {
     const doSearch = () => {
       clearTimeout(delayTimer);
       delayTimer = setTimeout(async () => {
