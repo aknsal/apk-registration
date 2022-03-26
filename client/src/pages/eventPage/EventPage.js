@@ -44,7 +44,11 @@ export default function EventPage() {
     <div className='event-page-container-layout-super'>
       {
         isLoading ?
+        <div>
+          <br/>
+          <br/>
         <CircularProgress className='circular-progress' />
+          </div>
         :
         <div>
         {(eventDetails && user) ?  

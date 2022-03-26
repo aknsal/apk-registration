@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllEvents } from "../../../redux/appSlice";
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 
 import "./EventList.css"
@@ -15,6 +16,8 @@ export default function EventList() {
   const isAuthenticated = useSelector(state => state.app.isAuthenticated);
   const allEventsOb = useSelector(state => state.app.allEvents);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // use it after words
   const [allEventsArr, setAllEventsArr] = useState([]);
   // console.log("All Events in Event Page", allEventsOb);
@@ -22,6 +25,7 @@ export default function EventList() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    setIsLoading(true);
     const response = await axios.get("/api/getevents").catch((err) => {
       console.log("Error Getting Events", err);
     });
@@ -32,6 +36,7 @@ export default function EventList() {
       setAllEventsArr(response.data.allEvents);
       console.log(response.data.allEvents);
     }
+    setIsLoading(false);
   }, [])
 
 
@@ -43,8 +48,15 @@ export default function EventList() {
       </div>
 
 
-
-
+      {
+        isLoading?
+        <div>
+          <br/>
+          <br/>
+        <CircularProgress className='circular-progress' />
+          </div>
+        :
+        <div>
       <div className='event-list-category-section'>
         <div className='event-list-category-heading'> <Typography variant='h6'>Development</Typography> </div>
         <hr />
@@ -136,6 +148,8 @@ export default function EventList() {
           </Grid>
         </div>
       </div>
+      </div>
+          }
     </div>
   )
 }
