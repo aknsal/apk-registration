@@ -8,6 +8,12 @@
   animation: glitch 725ms infinite;
 }
 
+@media screen and (max-width: 480px) {
+  .glitch {
+    font-size: 3rem;
+  }
+}
+
 .glitch span {
   position: absolute;
   top: 0;
