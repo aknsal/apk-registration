@@ -48,7 +48,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
+export default function LoginFirst() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

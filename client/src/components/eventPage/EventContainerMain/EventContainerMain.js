@@ -15,6 +15,8 @@ import "./EventContainerMain.css"
 import Tag from './components/tag/Tag';
 import RegisterButton from '../registerButton/RegisterButton';
 import CustomizedDialogs from '../../registrationForm/RegistrationForm';
+import LoginFirst from '../../login_first/LoginFirst';
+
 
 export default function EventContainerMain({eventDetails,isRegistered}) {
 console.log("Evetn ", eventDetails);
@@ -54,12 +56,21 @@ const user = useSelector(state => state.app.authUser);
               }
                 
             </div>
+
               <div className='event-container-main-details-tags'>
                 <Tag tagName={eventDetails.category} />
               </div>
-              <div className='event-container-main-details-register-button'>
+            {
+              user?
+                <div className='event-container-main-details-register-button'>
                   {isRegistered?<RegisterButton/>:<CustomizedDialogs eventDetails={eventDetails} />}
               </div>
+              :
+              <div>
+                <LoginFirst />
+              </div>
+            }
+              
             
           </div>
         </div>
