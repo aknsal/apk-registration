@@ -31,7 +31,7 @@ const Event = sequelize.define("Event", {
     allowNull: false,
   },
   about:{
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(1234),
     allowNull: false,
   },
   prizes:{
