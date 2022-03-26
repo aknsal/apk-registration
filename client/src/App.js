@@ -18,6 +18,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProfilePage from './pages/profilePage/ProfilePage';
+import Homepage from './pages/home/Homepage';
 
 function App() {
   const googleSuccess = (res) => {
@@ -41,6 +42,7 @@ function App() {
     <Router>
           <Layout />
           <Routes>
+            <Route path="/" element={<Homepage />} />
             <Route path="/events" element={<Events />} />
             <Route path="/eventpage/:eventCode" element={<EventPage />} />
             <Route path="login/error" element={<LoginError />}/>
