@@ -53,10 +53,10 @@ export default function EventPage() {
         <div>
         {(eventDetails && user) ?  
           <div className="event-page-container-layout">
-          <Grid container spacing={4} >
-              <Grid item lg={12}>
+          <Grid container spacing={4}  >
+              <Grid item lg={12} style={{flexGrow:"1"}} >
     
-              <EventContainerMain style={{flexGrow:"1"}} xs={12} sm={12} md={12} lg={12} xl={12} eventDetails={eventDetails} isRegistered={isRegistered}  />
+              <EventContainerMain xs={12} sm={12} md={12} lg={12} xl={12} eventDetails={eventDetails} isRegistered={isRegistered}  />
               </Grid>
               <Grid item xs={12} lg={9}>
               <EventAboutContainer eventDetails={eventDetails} />
@@ -70,9 +70,9 @@ export default function EventPage() {
         </div>
         : <div className="event-page-container-layout">
           <Grid container spacing={4} >
-              <Grid item lg={12}>
+              <Grid item lg={12} style={{flexGrow:"1"}}>
     
-              <EventContainerMain style={{flexGrow:"1"}} xs={12} sm={12} md={12} lg={12} xl={12} eventDetails={eventDetails} isRegistered={isRegistered}  />
+              <EventContainerMain  xs={12} sm={12} md={12} lg={12} xl={12} eventDetails={eventDetails} isRegistered={isRegistered}  />
               </Grid>
               <Grid item xs={12} lg={9}>
               <EventAboutContainer eventDetails={eventDetails} />
