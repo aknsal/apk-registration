@@ -27,7 +27,7 @@ export default function RegisteredEvents() {
                 <div>
                   <br/>
                   <br/>
-                <Typography > You have not registered for any Events. Go to <Typography color="success" component={Link} to={"/events"}> Events Tab </Typography> and register for some exciting Events.</Typography>
+                <Typography > You have not registered for any Events. Go to <Typography textDecoration='none' color="success" component={Link} to={"/events"}> Events Tab</Typography> and register for some exciting Events.</Typography>
                 </div>
                 :
                 user.Events.map((event) => 

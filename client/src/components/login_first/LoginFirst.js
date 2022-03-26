@@ -61,7 +61,7 @@ export default function LoginFirst() {
   return (
     <div>
       <Button variant="contained" color='success' onClick={handleClickOpen}>
-        Open dialog
+        Register
       </Button>
       <BootstrapDialog
         onClose={handleClose}
