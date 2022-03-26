@@ -211,7 +211,7 @@ const ResponsiveAppBar = () => {
               </Menu>
             </Box>
             :
-            <Button color="success" onClick={redirectToGoogleSSO} > Log In <LoginSharpIcon /> </Button>
+            <Button variant='contained' color="success" onClick={redirectToGoogleSSO} > Log In <LoginSharpIcon /> </Button>
           }
         </Toolbar>
       </Container>
