@@ -46,7 +46,7 @@ export default function EventList() {
 
       {
         isLoading?
-        <div>
+        <div className="event-list-sub-container">
           <br/>
           <br/>
         <CircularProgress className='circular-progress' />
