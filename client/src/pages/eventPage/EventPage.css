@@ -20,3 +20,7 @@
   flex-grow: 3;
   width: 20px;
 }
+
+.circular-progress {
+  text-align: center;
+}

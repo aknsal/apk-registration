@@ -7,16 +7,19 @@ import axios from "axios";
 import "./EventPage.css"
 import { useSelector } from 'react-redux'
 import { Grid } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function EventPage() {
   let eventCodeOb = useParams();
   const [eventDetails, setEventDetails] = useState({});
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // console.log(eventCode.id);
 
   const user = useSelector(state => state.app.authUser);
 
   useEffect(async()=>{
+    setIsLoading(true);
     const response = await axios.get(`/api/getevent/${eventCodeOb.eventCode}`).catch((err) => {
       console.log(`Error Getting Event ${eventCodeOb.eventCode}`, err);
     });
@@ -25,7 +28,7 @@ export default function EventPage() {
       console.log("Event Recieved",response.data);
       setEventDetails(response.data.event)
     }
-
+    setIsLoading(false);
   },[])
 
   useEffect(async() => {
@@ -39,42 +42,52 @@ export default function EventPage() {
 
   return (
     <div className='event-page-container-layout-super'>
-      {(eventDetails && user) ?  
-      <div className="event-page-container-layout">
-      <Grid container spacing={4} >
-          <Grid item lg={12}>
-
-          <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+      {
+        isLoading ?
+        <CircularProgress className='circular-progress' />
+        :
+        <div>
+        {(eventDetails && user) ?  
+          <div className="event-page-container-layout">
+          <Grid container spacing={4} >
+              <Grid item lg={12}>
+    
+              <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+              </Grid>
+              <Grid item xs={12} lg={9}>
+              <EventAboutContainer eventDetails={eventDetails} />
+              </Grid>
+    
+              <Grid item xs={12} lg={3}>
+              <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
+              </Grid>
+    
           </Grid>
-          <Grid item xs={12} lg={9}>
-          <EventAboutContainer eventDetails={eventDetails} />
+        </div>
+        : <div className="event-page-container-layout">
+          <Grid container spacing={4} >
+              <Grid item lg={12}>
+    
+              <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
+              </Grid>
+              <Grid item xs={12} lg={9}>
+              <EventAboutContainer eventDetails={eventDetails} />
+              </Grid>
+    
+              <Grid item xs={12} lg={3}>
+              <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
+              </Grid>
+    
           </Grid>
+          
+          
+      </div>
+        }
+        </div>
+      }
 
-          <Grid item xs={12} lg={3}>
-          <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
-          </Grid>
 
-      </Grid>
-    </div>
-    : <div className="event-page-container-layout">
-      <Grid container spacing={4} >
-          <Grid item lg={12}>
-
-          <EventContainerMain eventDetails={eventDetails} isRegistered={isRegistered}  />
-          </Grid>
-          <Grid item xs={12} lg={9}>
-          <EventAboutContainer eventDetails={eventDetails} />
-          </Grid>
-
-          <Grid item xs={12} lg={3}>
-          <EventDetailsContainer eventDetails={eventDetails} isRegistered={isRegistered}/>
-          </Grid>
-
-      </Grid>
       
-      
-  </div>
-    }
       
     </div>
   )
