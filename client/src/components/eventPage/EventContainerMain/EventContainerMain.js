@@ -16,6 +16,7 @@ import Tag from './components/tag/Tag';
 import RegisterButton from '../registerButton/RegisterButton';
 import CustomizedDialogs from '../../registrationForm/RegistrationForm';
 import LoginFirst from '../../login_first/LoginFirst';
+import RegisterFirst from '../../register_first/RegisterFirst';
 
 
 export default function EventContainerMain({eventDetails,isRegistered}) {
@@ -62,9 +63,16 @@ const user = useSelector(state => state.app.authUser);
               </div>
             {
               user?
+
+              <div>
+              {user.username? 
                 <div className='event-container-main-details-register-button'>
                   {isRegistered?<RegisterButton/>:<CustomizedDialogs eventDetails={eventDetails} />}
               </div>
+              :
+              <RegisterFirst />
+            }
+                </div>
               :
               <div>
                 <LoginFirst />

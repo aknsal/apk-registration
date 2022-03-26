@@ -338,6 +338,8 @@ open={open}
       ...INITIAL_FORM_STATE_TEAM
     }}
     validationSchema={FORM_VALIDATION_TEAM}
+    validateOnChange={false}
+    validateOnBlur={false}
     onSubmit={handleTeamSubmit}
   >
 
@@ -426,6 +428,8 @@ open={open}
               ...INITIAL_FORM_STATE
             }}
             validationSchema={FORM_VALIDATION}
+            validateOnChange={false}
+            validateOnBlur={false}
             onSubmit={handleSubmit}
           >
 
