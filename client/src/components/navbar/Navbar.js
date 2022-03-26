@@ -136,10 +136,14 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-
+              {
+              user?
               <MenuItem component={Link} to={'/dashboard'} onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Dashboard</Typography>
               </MenuItem>
+              :
+              null
+              }
               <MenuItem component={Link} to={'/events'} onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Events</Typography>
               </MenuItem>
@@ -155,11 +159,17 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', paddingRight: 3 }}>
 
+            {
+              user?
+
             <Button
               sx={{ my: 2, color: 'white', display: 'block' }} component={Link} to={'/dashboard'}
             >
               Dashboard
             </Button>
+            :
+            null
+            }
             <Button
 
               sx={{ my: 2, color: 'white', display: 'block' }}

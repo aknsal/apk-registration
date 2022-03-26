@@ -2,16 +2,21 @@ import { Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import RegisterButton from '../registerButton/RegisterButton'
 import date from 'date-and-time';
+import { useSelector } from 'react-redux';
 
 import "./EventDetailsContainer.css"
 import CustomizedDialogs from '../../registrationForm/RegistrationForm';
 import axios from 'axios';
+import LoginFirst from '../../login_first/LoginFirst';
+import RegisterFirst from '../../register_first/RegisterFirst';
 
 export default function EventDetailsContainer({eventDetails,isRegistered}) {
+  const user = useSelector(state => state.app.authUser);
 
   const [organiser1, setOrganiser1] = useState({});
   const [organiser2, setOrganiser2] = useState({});
   const [organiser3, setOrganiser3] = useState({});
+
   
   useEffect(async() =>{
     if(Object.keys(eventDetails).length !== 0){
@@ -62,13 +67,35 @@ export default function EventDetailsContainer({eventDetails,isRegistered}) {
           <Typography><b>Rounds: </b>{eventDetails.rounds}</Typography>
         </div>
       </div>
-      {isRegistered?
-      <RegisterButton />
-    :<CustomizedDialogs eventDetails={eventDetails} />}
+
+
+      {
+              user?
+
+              <div>
+              {user.username? 
+                <div className='event-container-main-details-register-button'>
+                  {isRegistered?<RegisterButton/>:<CustomizedDialogs eventDetails={eventDetails} />}
+              </div>
+              :
+              <RegisterFirst />
+            }
+                </div>
+              :
+              <div>
+                <LoginFirst />
+              </div>
+            }
+
+      
+
+
       <div className='event-details-container-heading'>
         <Typography variant='h5'>Contact</Typography>
       </div>
       <div className='event-details-container-items'>
+
+
         {Object.keys(organiser1).length !== 0 ? <div className='event-details-container-item'>
           <Typography><b>{organiser1.fullName}: </b>{organiser1.whatsappNumber}</Typography>
         </div> :null }
