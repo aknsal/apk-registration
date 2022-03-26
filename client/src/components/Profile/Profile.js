@@ -42,26 +42,7 @@ export default function Profile() {
     }
   }
 
-  let delayTimer = null;
-  let isValid = false;
-  const checkAvailabilityUsernameTimeout = async (username) => {
-    const doSearch = () => {
-      clearTimeout(delayTimer);
-      delayTimer = setTimeout(async () => {
-        const { getUser } = await axios.get(`/api/getuser/${username}`).catch(err=>console.log("Error checking username",err));
-        if(getUser){
-          if(getUser.data.message==="user not exist"){
-            isValid=true;
-          }
-          else{
-            isValid=false;
-          }
-        }
-      }, 3000); // Will do the ajax stuff after 3s
-    };
-    doSearch();
-    return isValid;
-  }
+ 
 
   const checkAvailabilityUsername = async (username) =>{
     const getUser = await axios.get(`/api/getuser/${username}`).catch(err=>console.log("Error checking username",err))
@@ -85,7 +66,7 @@ export default function Profile() {
             if(user.username){
               return true;
             }
-            return checkAvailabilityUsernameTimeout(username);
+            return checkAvailabilityUsername(username);
     })
     .matches(regexUsername,'Wrong format')
     .required("You must enter a username"),
@@ -184,6 +165,8 @@ export default function Profile() {
             ...INITIAL_FORM_STATE
           }}
           validationSchema={FORM_VALIDATION}
+          validateOnChange={false}
+          validateOnBlur={false}
           onSubmit={handleSubmit}
         >
 
