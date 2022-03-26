@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import logo from "../../assets/APK_logo.png";
+import LoginSharpIcon from '@mui/icons-material/LoginSharp';
 import GoogleButton from 'react-google-button';
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
@@ -210,7 +211,7 @@ const ResponsiveAppBar = () => {
               </Menu>
             </Box>
             :
-            <GoogleButton onClick={redirectToGoogleSSO} />
+            <Button color="success" onClick={redirectToGoogleSSO} > Log In <LoginSharpIcon /> </Button>
           }
         </Toolbar>
       </Container>

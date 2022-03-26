@@ -3,7 +3,7 @@
   margin: 1rem 4rem 2rem;
 }
 
-.event-list-container-header{
+.event-list-container-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,7 +14,7 @@
   padding-top: 0;
 }
 
-.event-list-container-add-event{
+.event-list-container-add-event {
   padding-left: 8px;
 }
 
@@ -22,4 +22,8 @@
   .event-list-category-section
   .event-list-category-heading {
   padding-top: 1rem;
+}
+
+.circular-progress {
+  text-align: center;
 }

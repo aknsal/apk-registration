@@ -42,10 +42,6 @@ export default function EventList() {
 
   return (
     <div className='event-list-container'>
-      <div className="event-list-container-header">
-        <Typography className='event-list-container-heading' variant="h3">Events </Typography>
-        {isAuthenticated && user && user.isAdmin ? <Button variant='outlined' component={Link} to="/addevent" > <AddBoxRoundedIcon /> <Typography className='event-list-container-add-event' > Add Event </Typography></Button> : null}
-      </div>
 
 
       {
@@ -57,6 +53,10 @@ export default function EventList() {
           </div>
         :
         <div>
+      <div className="event-list-container-header">
+        <Typography className='event-list-container-heading' variant="h3">Events </Typography>
+        {isAuthenticated && user && user.isAdmin ? <Button variant='outlined' component={Link} to="/addevent" > <AddBoxRoundedIcon /> <Typography className='event-list-container-add-event' > Add Event </Typography></Button> : null}
+      </div>
       <div className='event-list-category-section'>
         <div className='event-list-category-heading'> <Typography variant='h6'>Development</Typography> </div>
         <hr />
