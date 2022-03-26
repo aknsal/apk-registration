@@ -6,6 +6,7 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import RotateRightRoundedIcon from '@mui/icons-material/RotateRightRounded';
 import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
 import date from 'date-and-time';
 
 
@@ -17,6 +18,9 @@ import CustomizedDialogs from '../../registrationForm/RegistrationForm';
 
 export default function EventContainerMain({eventDetails,isRegistered}) {
 console.log("Evetn ", eventDetails);
+const user = useSelector(state => state.app.authUser);
+
+
 
   return (
     
@@ -50,15 +54,12 @@ console.log("Evetn ", eventDetails);
               }
                 
             </div>
-            <div className='event-container-main-details-tags'>
-              <Tag tagName={eventDetails.category} />
-            </div>
-            <div className='event-container-main-details-register-button'>
-                {isRegistered?<RegisterButton/>:<CustomizedDialogs eventDetails={eventDetails} />}
-              
-                
-            
-            </div>
+              <div className='event-container-main-details-tags'>
+                <Tag tagName={eventDetails.category} />
+              </div>
+              <div className='event-container-main-details-register-button'>
+                  {isRegistered?<RegisterButton/>:<CustomizedDialogs eventDetails={eventDetails} />}
+              </div>
             
           </div>
         </div>

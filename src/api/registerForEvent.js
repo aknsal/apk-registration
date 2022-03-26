@@ -123,7 +123,7 @@ router.post("/registerteam/:eventCode", async(req,res) => {
 
 
     if(Object.keys(updateObject).length !== 0){
-        const response = await User.update(updateUser, {
+        const response = await User.update(updateObject, {
             where: {
               email: req.user.email,
             }
