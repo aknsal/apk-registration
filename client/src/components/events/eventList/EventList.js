@@ -80,7 +80,7 @@ export default function EventList() {
         </div>
       </div>
 
-      <div className='event-list-category-section'>
+      {/* <div className='event-list-category-section'>
         <div className='event-list-category-heading'> <Typography variant='h6'>Coding</Typography> </div>
         <hr />
         <div className='event-list-category-items'>
@@ -124,9 +124,9 @@ export default function EventList() {
             }
           </Grid>
         </div>
-      </div>
+      </div> */}
 
-      <div className='event-list-category-section'>
+      {/* <div className='event-list-category-section'>
         <div className='event-list-category-heading'> <Typography variant='h6'>Blockchain</Typography> </div>
         <hr />
         <div className='event-list-category-items'>
@@ -147,7 +147,7 @@ export default function EventList() {
             }
           </Grid>
         </div>
-      </div>
+      </div> */}
       </div>
           }
     </div>
