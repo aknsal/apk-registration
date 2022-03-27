@@ -36,7 +36,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://apk-registration.herokuapp.com",
+  "proxy": "https://register.aparoksha.in",
   "eslintConfig": {
     "extends": [
       "react-app",

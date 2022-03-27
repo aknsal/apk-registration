@@ -34,7 +34,6 @@ export default function EventList() {
       // console.log("Event Data", response.data);
       dispatch(setAllEvents(response.data));
       setAllEventsArr(response.data.allEvents);
-      console.log(response.data.allEvents);
     }
     setIsLoading(false);
   }, [])
