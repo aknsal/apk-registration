@@ -71,7 +71,6 @@ const ResponsiveAppBar = () => {
     if (newWindow) {
       timer = setInterval(() => {
         if (newWindow.closed) {
-          console.log("Yes you have been logged in..");
           fetchAuthUser();
           if (timer) clearInterval(timer);
         }
@@ -85,7 +84,6 @@ const ResponsiveAppBar = () => {
     });
 
     if (response && response.data) {
-      console.log("User Logged Out: ", response.data);
       if(response.data.message==="Logged Out"){
 
         dispatch(setIsAuthenticated(false));

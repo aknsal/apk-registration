@@ -25,7 +25,6 @@ export default function EventPage() {
     });
 
     if (response && response.data) {
-      console.log("Event Recieved",response.data);
       setEventDetails(response.data.event)
     }
     setIsLoading(false);

@@ -46,7 +46,6 @@ export default function EventAboutContainer({ eventDetails }) {
           setColumns (col => [...col,{headerName: "Team Name", field: "teamName", width: 120}])
         }
       }
-      console.log("Get events",eventDetails);
       const eventWithParticipants = await axios.get(`/api/getparticipants/${eventDetails.eventCode}`,{withCredentials:true}).catch(err=>console.log("Error getting participants",err))
       if(eventWithParticipants && eventWithParticipants.data && !areRowsSet){
         setParticipantList(eventWithParticipants.data.Users)
@@ -60,7 +59,6 @@ export default function EventAboutContainer({ eventDetails }) {
         setAreRowsSet(true);
         
         // console.log(eventWithParticipants.data.Users);
-        console.log("ShowData", showData);
         setRows(rows=> [...showData])
       }
       

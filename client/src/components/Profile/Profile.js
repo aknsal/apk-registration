@@ -140,7 +140,6 @@ export default function Profile() {
     });
 
     if (userData && userData.data) {
-      console.log("User: ", userData.data);
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(userData.data));
     }

@@ -146,7 +146,6 @@ export default function CustomizedDialogs({ eventDetails }) {
   const checkUserRegistered = async (username) =>{
     const getUser = await axios.get(`/api/checkusername/${username}`).catch(err=>console.log("Error checking username",err))
     if(getUser){
-      console.log(getUser.data);
       if(getUser.data.message==="User has Registered"){
         return true;
       }
@@ -159,7 +158,6 @@ export default function CustomizedDialogs({ eventDetails }) {
   const checkUserRegisteredForEvent = async (username) =>{
     const getUser = await axios.get(`/api/check/user/event/reg/${username}/${eventDetails.eventCode}`).catch(err=>console.log("Error checking username",err))
     if(getUser){
-      console.log(getUser.data);
       if(getUser.data.message==="User already registered for this event"){
         return false;
       }
@@ -241,7 +239,6 @@ export default function CustomizedDialogs({ eventDetails }) {
     });
 
     if (userData && userData.data) {
-      console.log("User: ", userData.data);
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(userData.data));
     }
@@ -272,7 +269,6 @@ export default function CustomizedDialogs({ eventDetails }) {
     });
 
     if (userData && userData.data) {
-      console.log("User: ", userData.data);
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(userData.data));
     }
@@ -302,7 +298,6 @@ export default function CustomizedDialogs({ eventDetails }) {
     });
 
     if (userData && userData.data) {
-      console.log("User: ", userData.data);
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(userData.data));
     }
@@ -382,13 +377,11 @@ open={open}
             {isWhatsappNumberReq ?
               <Grid item xs={12} lg={12} >
                 <Textfield name="whatsappNumber" label="Whatsapp Number" />
-                {console.log(INITIAL_FORM_STATE)}
               </Grid> : null}
 
               {isgithubUsernameReq ?
               <Grid item xs={12} lg={12} >
                 <Textfield name="githubUsername" label="Github Username" />
-                {console.log(INITIAL_FORM_STATE)}
               </Grid> : null}
 
 
@@ -448,13 +441,11 @@ open={open}
                     {isWhatsappNumberReq ?
                       <Grid item xs={12} lg={12} >
                         <Textfield name="whatsappNumber" label="Whatsapp Number" />
-                        {console.log(INITIAL_FORM_STATE)}
                       </Grid> : null}
 
                       {isgithubUsernameReq ?
                       <Grid item xs={12} lg={12} >
                         <Textfield name="githubUsername" label="Github Username" />
-                        {console.log(INITIAL_FORM_STATE)}
                       </Grid> : null}
 
 

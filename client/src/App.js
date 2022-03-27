@@ -30,7 +30,6 @@ function App() {
     console.log("Google Sign in was unsuccessful")
   }
 
-  console.log(theme);
 
   const user = useSelector(state => state.app.authUser);
   // console.log("user Details", user);
