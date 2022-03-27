@@ -4,8 +4,8 @@ const { isUserAuthenticated } = require("../middlewares/auth");
 
 const router = express.Router();
 
-const successLoginUrl = "https://apk-registration.herokuapp.com/login/success";
-const errorLoginUrl = "https://apk-registration.herokuapp.com/login/error";
+const successLoginUrl = "https://register.aparoksha.in/login/success";
+const errorLoginUrl = "https://register.aparoksha.in/login/error";
 
 router.get(
   "/login/google",
