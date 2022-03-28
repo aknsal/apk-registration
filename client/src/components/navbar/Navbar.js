@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import logo from "../../assets/APK_logo.png";
+import logo from "../../assets/apk_logo_up.png";
 import LoginSharpIcon from '@mui/icons-material/LoginSharp';
 import GoogleButton from 'react-google-button';
 import axios from "axios";

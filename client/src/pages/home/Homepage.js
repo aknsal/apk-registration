@@ -16,7 +16,7 @@ export default function Homepage() {
       <p class="glitch">
         <span aria-hidden="true">Aparoksha</span>
         Aparoksha
-        <Typography variant='h4'> Annual Techfest of IIIT Allahabd </Typography>
+        <Typography variant='h4'> Annual Techfest of IIIT Allahabad </Typography>
         <span aria-hidden="true">Aparoksha</span>
       </p>
       {
