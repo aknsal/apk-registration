@@ -73,7 +73,7 @@ app.use("/api/", api);
 
 
 app.get('*',function(req,res,next){
-  if(req.headers['x-forwarded-proto']!='https' && (process.env.NODE_ENV === 'production') )
+  if(req.headers['x-forwarded-proto']!='https' )
     res.redirect('https://register.aparoksha.in'+req.url)
   else
     next() /* Continue to other routes if we're not redirecting */
