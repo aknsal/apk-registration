@@ -191,7 +191,7 @@ export default function Profile() {
                   <br />
                   No __ or _. or ._ or ..
                   <br />
-                  characters _ or . should not be in the beginning or end
+                  Characters _ or . should not be in the beginning or end
                 </>
                 } />}
                 
