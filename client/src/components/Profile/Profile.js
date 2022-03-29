@@ -57,25 +57,18 @@ export default function Profile() {
   }
 
   const regexUsername = /^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
-  const regexUserNameTest1 = /^(?![_.])$/
-  const regexUserNameTest2 = /^(?!.*[_.]{2})$/
-  const regexUserNameTest3 = /^[a-zA-Z0-9._]$/
-  const regexUserNameTest4 = /^(?<![_.])$/
 
   const FORM_VALIDATION = Yup.object().shape({
     username:  Yup.string()
     .min(4, "Mininum 4 characters")
     .max(15, "Maximum 15 characters")
-    .matches(regexUserNameTest1,'Username should not start with _ or .')
-    .matches(regexUserNameTest2,'Username should not have __ or _. or ._ or .. in between')
-    .matches(regexUserNameTest3,'Only letters, numbers and symbols .and _ are allowed')
-    .matches(regexUserNameTest4,'No _ or  . at the end')
     .test("username", "This username has already been taken", function (username) {
             if(user.username){
               return true;
             }
             return checkAvailabilityUsername(username);
     })
+    .matches(regexUsername,'Wrong format')
     .required("You must enter a username"),
     college: Yup.string()
       .required('Required'),
@@ -192,7 +185,15 @@ export default function Profile() {
               </Grid>
 
               <Grid item xs = {12} lg={6} >
-                {user && user.username ? <Textfield disabled name="username" label="Username" /> : <Textfield required name="username" label="Username" />}
+                {user && user.username ? <Textfield disabled name="username" label="Username" /> : <Textfield required name="username" label="Username" helperText={
+                  <>
+                  Contains only letters, numbers, _ and .
+                  <br />
+                  No __ or _. or ._ or ..
+                  <br />
+                  characters _ or . should not be in the beginning or end
+                </>
+                } />}
                 
               </Grid>
 
