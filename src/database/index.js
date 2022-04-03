@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
   },
 );
 
-sequelize.sync({alter:true});
+sequelize.sync();
 
 (async () => {
   try {
