@@ -28,7 +28,7 @@
       "https://api.cloudinary.com"
     ],
     "font-src": [
-      "'self",
+      "'self'",
       "https://fonts.gstatic.com"
     ]
   }

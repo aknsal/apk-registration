@@ -20,7 +20,6 @@ import RegisterFirst from '../../register_first/RegisterFirst';
 
 
 export default function EventContainerMain({eventDetails,isRegistered}) {
-console.log("Evetn ", eventDetails);
 const user = useSelector(state => state.app.authUser);
 
 

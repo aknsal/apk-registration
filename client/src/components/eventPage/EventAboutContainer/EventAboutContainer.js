@@ -95,7 +95,6 @@ export default function EventAboutContainer({ eventDetails }) {
         <Typography variant='h4'>Participants</Typography>
       </div>
       <hr />
-      {console.log("Columns",columns)}
 
       { rows.length && columns.length ?
       <div style={{ height: 300, width: '100%' }}>
