@@ -45,7 +45,7 @@ export default function Profile() {
  
 
   const checkAvailabilityUsername = async (username) =>{
-    const getUser = await axios.get(`/api/getuser/${username}`).catch(err=>console.log("Error checking username",err))
+    const getUser = await axios.get(`http://localhost:5000/api/getuser/${username}`).catch(err=>console.log("Error checking username",err))
     if(getUser){
       if(getUser.data.message==="user not exist"){
         return true;
@@ -125,7 +125,7 @@ export default function Profile() {
     const googleId = user.googleId;
 
 
-    const response = await axios.patch("/api/updateprofile", { ...values, googleId }, { withCredentials: true }).catch((err) => {
+    const response = await axios.patch("http://localhost:5000/api/updateprofile", { ...values, googleId }, { withCredentials: true }).catch((err) => {
       console.log("Error while updating", err);
     })
     if (response && response.data) {
@@ -133,7 +133,7 @@ export default function Profile() {
         console.log("Record Updated Successfully");
       }
     }
-    const userData = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
+    const userData = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true }).catch((err) => {
       console.log("Not properly authenticated", err);
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));

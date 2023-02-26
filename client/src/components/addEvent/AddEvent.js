@@ -123,7 +123,7 @@ export default function AddEvent() {
 
 
     // useEffect(async() => {
-    //     const inputDataObj = await axios.get("/api/getinput", {withCredentials:true}).catch((err)=> 
+    //     const inputDataObj = await axios.get("http://localhost:5000/api/getinput", {withCredentials:true}).catch((err)=> 
     //     console.log("Error getiing input Details",err)
     //     )
     //     if(inputDataObj){
@@ -189,7 +189,7 @@ export default function AddEvent() {
 
     const handleOrg1Click = async () => {
         setOrganiser1Loader(true);
-        const response = await axios.get(`/api/getuser/${organiser1}`).catch((err) => console.log("Error getting user"))
+        const response = await axios.get(`http://localhost:5000/api/getuser/${organiser1}`).catch((err) => console.log("Error getting user"))
         console.log("got Organiser result", response);
         if (response && response.data) {
             if (response.data.isRegistered) {
@@ -211,7 +211,7 @@ export default function AddEvent() {
 
     const handleOrg2Click = async () => {
         setOrganiser2Loader(true);
-        const response = await axios.get(`/api/getuser/${organiser2}`).catch((err) => console.log("Error getting user"))
+        const response = await axios.get(`http://localhost:5000/api/getuser/${organiser2}`).catch((err) => console.log("Error getting user"))
         console.log("got Organiser result", response);
         if (response && response.data) {
             if (response.data.isRegistered) {
@@ -233,7 +233,7 @@ export default function AddEvent() {
 
     const handleOrg3Click = async () => {
         setOrganiser3Loader(true);
-        const response = await axios.get(`/api/getuser/${organiser3}`).catch((err) => console.log("Error getting user"))
+        const response = await axios.get(`http://localhost:5000/api/getuser/${organiser3}`).catch((err) => console.log("Error getting user"))
         console.log("got Organiser result", response);
         if (response && response.data) {
             if (response.data.isRegistered) {
@@ -257,7 +257,7 @@ export default function AddEvent() {
     const handleSubmit = async () => {
         setSubmitLoaderFinal(true);
         console.log(eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername);
-        const response = await axios.post("/api/addevent", { eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername }, { withCredentials: true }).catch((err) => {
+        const response = await axios.post("http://localhost:5000/api/addevent", { eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername }, { withCredentials: true }).catch((err) => {
             console.log("There was a problem adding event", err);
         });
         if (response) {

@@ -17,11 +17,12 @@
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.inactiveBackground": "#5e8f8b99",
         "titleBar.inactiveForeground": "#e7e7e799",
+        "commandCenter.border": "#e7e7e799",
         "panel.border": "#79a7a3",
         "sideBar.border": "#79a7a3",
         "statusBar.border": "#5e8f8b",
-        "titleBar.border": "#5e8f8b",
-        "tab.activeBorder": "#79a7a3"
+        "tab.activeBorder": "#79a7a3",
+        "titleBar.border": "#5e8f8b"
     },
     "peacock.color": "#5e8f8b"
 }

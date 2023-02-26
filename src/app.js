@@ -72,12 +72,12 @@ app.use("/api/", api);
 
 
 
-app.get('*',function(req,res,next){
-  if(req.headers['x-forwarded-proto']!='https' )
-    res.redirect('https://register.aparoksha.in'+req.url)
-  else
-    next() /* Continue to other routes if we're not redirecting */
-})
+// app.get('*',function(req,res,next){
+//   if(req.headers['x-forwarded-proto']!='https' )
+//     res.redirect('https://register.aparoksha.in'+req.url)
+//   else
+//     next() /* Continue to other routes if we're not redirecting */
+// })
 
 // Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {
