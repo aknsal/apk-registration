@@ -10,8 +10,8 @@ const EventUserJuction = require("../models/eventUserJunction");
 const router = express.Router();
 
 router.post("/addevent", isUserAdmin, async (req,res) => {
-    let {eventName, date, organiser1, organiser2, organiser3, rounds, totalParticipants, about, prizes,image1URL, image2URL, category ,eventCode, teamSize, whatsappNumber, githubUsername} = req.body;
-    
+    let {eventName, date, organiser1, organiser2, organiser3, rounds, totalParticipants, about, prizes,image1URL, image2URL, category ,eventCode, teamSize, minTeamSize, whatsappNumber, githubUsername} = req.body;
+    minTeamSize=1;
     if(req.body.organiser2==""){
         organiser2 = null;
     }
@@ -36,7 +36,8 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
     const inputDetails = await Input.findAll().catch(err => console.log("Error getting inputs",err));
 
     if(inputDetails){
-        const newEvent = new Event({eventName, date, organiser1,organiser2,organiser3, rounds, totalParticipants, about, prizes, image1, image2, category, eventCode,teamSize});
+        const newEvent = new Event({eventName, date, organiser1,organiser2,organiser3, rounds, totalParticipants, about, prizes, image1, image2, category, eventCode,teamSize, minTeamSize});
+
         const savedEvent = await newEvent.save().catch((err) => {
             console.log("Error saving event: ",err);
             res.status(500).json({error: "Cannot save event at the moment"});

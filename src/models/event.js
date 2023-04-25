@@ -57,6 +57,10 @@ const Event = sequelize.define("Event", {
   teamSize:{
     type: DataTypes.STRING,
     allowNull:false,
+  },
+  minTeamSize:{
+    type: DataTypes.STRING,
+    allowNull:false,
   }
   
 });

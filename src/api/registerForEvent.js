@@ -92,6 +92,8 @@ router.post("/directregister/:eventCode", async (req,res) => {
 } )
 
 router.post("/registerteam/:eventCode", async(req,res) => {
+    console.log("Getting Info", req.body);
+    const chosenTeamsize = req.body.chosenTeamsize;
     const event = await Event.findOne({
         where:{
             eventCode: req.params.eventCode
@@ -150,7 +152,7 @@ router.post("/registerteam/:eventCode", async(req,res) => {
 
     await event.addUser(getTeamLead, {through: { teamName: req.body.teamName }}).catch(err => console.log("Error registering user", err))
     
-    if(event.teamSize > 1 && req.body.username1){
+    if(chosenTeamsize > 1 && req.body.username1){
         const part1 = await User.findOne({
             where:{
                 username: req.body.username1
@@ -160,7 +162,7 @@ router.post("/registerteam/:eventCode", async(req,res) => {
         await event.addUser(part1, {through: { teamName: req.body.teamName }}).catch(err => console.log("Error registering user", err))
     }
 
-    if(event.teamSize > 2 && req.body.username2){
+    if(chosenTeamsize > 2 && req.body.username2){
         const part2 = await User.findOne({
             where:{
                 username: req.body.username2
@@ -170,7 +172,7 @@ router.post("/registerteam/:eventCode", async(req,res) => {
         await event.addUser(part2, {through: { teamName: req.body.teamName }}).catch(err => console.log("Error registering user", err))
     }
 
-    if(event.teamSize > 3 && req.body.username3){
+    if(chosenTeamsize > 3 && req.body.username3){
         const part3 = await User.findOne({
             where:{
                 username: req.body.username3

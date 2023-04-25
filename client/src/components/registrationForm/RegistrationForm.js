@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Textfield from '../formUI/Textfield';
-import { Button, CircularProgress, Grid, Paper, Typography } from '@mui/material';
+import { Button, CircularProgress,TextField,MenuItem, Grid, Paper, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setIsAuthenticated } from '../../redux/appSlice';
 import axios from 'axios';
@@ -26,6 +26,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
@@ -70,6 +72,8 @@ export default function CustomizedDialogs({ eventDetails }) {
   const [isgithubUsernameReq, setIsGithubUsernameReq] = React.useState(false);
   const [isTeamEvent, setIsTeamEvent] = React.useState(false);
   const [eventTeamSize, setEventTeamSize] = React.useState(0);
+  const [chosenTeamsize, setChosenTeamsize] = React.useState(0);
+  const [teamSizeOptions, setTeamsizeOptions] = React.useState(null);
 
   // const INITIAL_FORM_STATE = {
   //   whatsappNumber:"",
@@ -78,12 +82,27 @@ export default function CustomizedDialogs({ eventDetails }) {
 
   // console.log("Event Details", eventDetails );
 
+  
+
   if (user && !userLoaded && Object.keys(eventDetails).length !== 0) {
 
     setUserLoaded(true);
     if(eventDetails.teamSize !== "1"){
       setIsTeamEvent(true);
       setEventTeamSize(parseInt(eventDetails.teamSize));
+      setChosenTeamsize(eventDetails.teamSize);
+      let minTeamSize = eventDetails.minTeamSize;
+      let maxTeamSize = eventDetails.teamSize;
+      let tempTeamOption = [];
+      for(let i=minTeamSize ;i<=maxTeamSize;i++){
+        tempTeamOption.push({
+          value: i,
+          label: i.toString()
+        })
+      }
+      console.log(tempTeamOption);
+      setTeamsizeOptions(tempTeamOption);
+
     }
     if (eventDetails.Inputs.find(ele => ele.inputVar === 'whatsappNumber') && !user.whatsappNumber) {
       setIsWhatsappNumberReq(true);
@@ -117,11 +136,16 @@ export default function CustomizedDialogs({ eventDetails }) {
     whatsappNumber: "",
     githubUsername:"",
     teamName:"",
+    chosenTeamsize:""
   }
 
   if(user && !INITIAL_FORM_STATE.username0){
     INITIAL_FORM_STATE_TEAM.username0 = user.username;
   }
+
+
+  
+  
 
   // if(user && !INITIAL_FORM_STATE.email){
   //   INITIAL_FORM_STATE.email = user.email;
@@ -199,17 +223,17 @@ export default function CustomizedDialogs({ eventDetails }) {
     githubUsername: Yup.string()
       .concat(isgithubUsernameReq ? requiredStringSchema : null),
     username1: Yup.string()
-      .concat(eventTeamSize>1 ? checkTeamMates : null)
+      .concat(chosenTeamsize>1 ? checkTeamMates : null)
       .concat(eventTeamSize>1 ? checkTeamMatesifAlreadyRegisteredForEvent : null)
-      .concat(eventTeamSize>1 ? requiredStringSchema : null),
+      .concat(chosenTeamsize>1 ? requiredStringSchema : null),
     username2: Yup.string()
-      .concat(eventTeamSize>2 ?  checkTeamMates : null)
+      .concat(chosenTeamsize>2 ?  checkTeamMates : null)
       .concat(eventTeamSize>1 ? checkTeamMatesifAlreadyRegisteredForEvent : null)
-      .concat(eventTeamSize>2 ? requiredStringSchema : null),
+      .concat(chosenTeamsize>2 ? requiredStringSchema : null),
     username3: Yup.string()
-      .concat(eventTeamSize>3 ?  checkTeamMates : null)
+      .concat(chosenTeamsize>3 ?  checkTeamMates : null)
       .concat(eventTeamSize>1 ? checkTeamMatesifAlreadyRegisteredForEvent : null)
-      .concat(eventTeamSize>3 ? requiredStringSchema : null),
+      .concat(chosenTeamsize>3 ? requiredStringSchema : null),
       teamName:Yup.string()
       .concat(checkTeamName)
       .required("Team name is Required")
@@ -281,8 +305,8 @@ export default function CustomizedDialogs({ eventDetails }) {
 
   const handleTeamSubmit = async(values) => {
     setSubmitLoader(true);
-
-    const response = await axios.post(`http://localhost:5000/api/registerteam/${eventDetails.eventCode}`, { ...values }, { withCredentials: true }).catch((err) => {
+    console.log(values);
+    const response = await axios.post(`http://localhost:5000/api/registerteam/${eventDetails.eventCode}`, { ...values, chosenTeamsize }, { withCredentials: true }).catch((err) => {
       console.log("Error while updating", err);
     })
     if (response && response.data) {
@@ -304,6 +328,7 @@ export default function CustomizedDialogs({ eventDetails }) {
 
 
     setSubmitLoader(false);
+    navigate('/dashboard');
 
   }
 
@@ -311,7 +336,11 @@ export default function CustomizedDialogs({ eventDetails }) {
     console.log(values);
   }
 
+  const handleChosenTeamSize = (event) => {
+    setChosenTeamsize(event.target.value);
+  };
 
+  const ref = React.useRef(null);
 
   return (
     <div>
@@ -328,6 +357,7 @@ open={open}
 >
 
   <Formik
+    innerRef={ref}
     enableReinitialize={true}
     initialValues={{
       ...INITIAL_FORM_STATE_TEAM
@@ -352,24 +382,39 @@ open={open}
 
               <Grid item xs={12} lg={12} >
                 <Textfield name="teamName" label="Team Name"  />
-            </Grid> 
+            </Grid>
+
+            <Grid item xs={12} lg={12} >
+              <Textfield select label="Team Size" name="chosenTeamsize" value={chosenTeamsize} onChange={handleChosenTeamSize} >
+                    {console.log("TeamOpt", ref)}
+                          {teamSizeOptions.map((option) => (
+                              <MenuItem key={option.value} value={option.value}>
+                                  {option.label}
+                              </MenuItem>
+                          ))}
+              </Textfield>
+            </Grid>
+
+            
+            
 
             <Grid item xs={12} lg={12} >
                 <Textfield disabled name="username0" label="Participant 0"  />
             </Grid> 
 
 
-            {eventTeamSize > 1 ? 
+
+            {chosenTeamsize > 1 ? 
             <Grid item xs={12} lg={12} >
                 <Textfield name="username1" label="Participant 1"  />
             </Grid>  : null }
 
-            {eventTeamSize > 2 ? 
+            {chosenTeamsize > 2 ? 
             <Grid item xs={12} lg={12} >
                 <Textfield name="username2" label="Participant 2" />
             </Grid>  : null }
 
-            {eventTeamSize > 3 ? 
+            {chosenTeamsize > 3 ? 
             <Grid item xs={12} lg={12} >
                 <Textfield name="username3" label="Participant 3" />
             </Grid>  : null }
@@ -487,7 +532,6 @@ open={open}
 
 </div>
 }
-
     </div>
   );
 }
