@@ -20,20 +20,20 @@ export default function EventDetailsContainer({eventDetails,isRegistered}) {
   
   useEffect(async() =>{
     if(Object.keys(eventDetails).length !== 0){
-      const organiser1Res = await axios.get(`http://localhost:5000/api/getorganiser/${eventDetails.organiser1}`).catch("Error getting Organiser")
+      const organiser1Res = await axios.get(`/api/getorganiser/${eventDetails.organiser1}`).catch("Error getting Organiser")
       if(organiser1Res && organiser1Res.data){
         setOrganiser1(organiser1Res.data);
       }
 
       if(eventDetails.organiser2){
-        const organiser2Res = await axios.get(`http://localhost:5000/api/getorganiser/${eventDetails.organiser2}`).catch("Error getting Organiser")
+        const organiser2Res = await axios.get(`/api/getorganiser/${eventDetails.organiser2}`).catch("Error getting Organiser")
       if(organiser2Res && organiser2Res.data){
         setOrganiser2(organiser2Res.data);
       }
     }
 
       if(eventDetails.organiser3){
-        const organiser3Res = await axios.get(`http://localhost:5000/api/getorganiser/${eventDetails.organiser3}`).catch("Error getting Organiser")
+        const organiser3Res = await axios.get(`/api/getorganiser/${eventDetails.organiser3}`).catch("Error getting Organiser")
       if(organiser3Res && organiser3Res.data){
         setOrganiser3(organiser3Res.data);
       }

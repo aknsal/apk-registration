@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setIsAuthenticated } from '../../redux/appSlice';
 import { Link, useNavigate } from 'react-router-dom';
 const pages = ['Dashboard', 'Events'];
-const settings = [{name: 'Profile', link:"/profile"}, {name : 'Dashboard', link:"/dashboard"}, {name : 'Logout', link:"http://localhost:5000/api/logout"}];
+const settings = [{name: 'Profile', link:"/profile"}, {name : 'Dashboard', link:"/dashboard"}, {name : 'Logout', link:"/api/logout"}];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -51,7 +51,7 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate();
 
   const fetchAuthUser = async () => {
-    const response = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true }).catch((err) => {
+    const response = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));
     });
@@ -65,7 +65,7 @@ const ResponsiveAppBar = () => {
 
   const redirectToGoogleSSO = async () => {
     let timer = null;
-    const googleLoginURL = "http://localhost:5000/api/login/google";
+    const googleLoginURL = "/api/login/google";
     const newWindow = window.open(googleLoginURL, "_blank", "width=500,height=600");
 
     if (newWindow) {
@@ -79,7 +79,7 @@ const ResponsiveAppBar = () => {
   }
 
   const handleLogout = async () => {
-    const response = await axios.get("http://localhost:5000/api/logout", { withCredentials: true }).catch((err) => {
+    const response = await axios.get("/api/logout", { withCredentials: true }).catch((err) => {
       console.log("Some Error occurred logging out", err);
     });
 

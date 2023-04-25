@@ -20,7 +20,7 @@ export default function EventPage() {
 
   useEffect(async()=>{
     setIsLoading(true);
-    const response = await axios.get(`http://localhost:5000/api/getevent/${eventCodeOb.eventCode}`).catch((err) => {
+    const response = await axios.get(`/api/getevent/${eventCodeOb.eventCode}`).catch((err) => {
       console.log(`Error Getting Event ${eventCodeOb.eventCode}`, err);
     });
 

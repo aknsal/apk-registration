@@ -26,7 +26,7 @@ export default function EventList() {
 
   useEffect(async () => {
     setIsLoading(true);
-    const response = await axios.get("http://localhost:5000/api/getevents").catch((err) => {
+    const response = await axios.get("/api/getevents").catch((err) => {
       console.log("Error Getting Events", err);
     });
 
