@@ -4,7 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const User = require("../models/user");
 
-const GOOGLE_CALLBACK_URL = "https://apk-registration.onrender.com/api/auth/google/callback";
+const GOOGLE_CALLBACK_URL = "https://register.aparoksha.tech/api/auth/google/callback";
 
 passport.use(
   new GoogleStrategy(
