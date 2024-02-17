@@ -144,7 +144,7 @@ export default function CustomizedDialogs({ eventDetails }) {
   })
 
   const checkUserRegistered = async (username) =>{
-    const getUser = await axios.get(`/api/checkusername/${username}`).catch(err=>console.log("Error checking username",err))
+    const getUser = await axios.get(`http://localhost:5000/api/checkusername/${username}`).catch(err=>console.log("Error checking username",err))
     if(getUser){
       if(getUser.data.message==="User has Registered"){
         return true;
@@ -156,7 +156,7 @@ export default function CustomizedDialogs({ eventDetails }) {
   }
 
   const checkUserRegisteredForEvent = async (username) =>{
-    const getUser = await axios.get(`/api/check/user/event/reg/${username}/${eventDetails.eventCode}`).catch(err=>console.log("Error checking username",err))
+    const getUser = await axios.get(`http://localhost:5000/api/check/user/event/reg/${username}/${eventDetails.eventCode}`).catch(err=>console.log("Error checking username",err))
     if(getUser){
       if(getUser.data.message==="User already registered for this event"){
         return false;
@@ -168,7 +168,7 @@ export default function CustomizedDialogs({ eventDetails }) {
   }
 
   const checkTeamNameForEvent = async (teamName) =>{
-    const teamNameCheck = await axios.get(`/api/check/teamname/${teamName}/${eventDetails.id}`).catch(err=>console.log("Error checking username",err))
+    const teamNameCheck = await axios.get(`http://localhost:5000/api/check/teamname/${teamName}/${eventDetails.id}`).catch(err=>console.log("Error checking username",err))
     if(teamNameCheck){
       console.log("teamNameCheck",teamNameCheck.data,eventDetails.eventId);
       if(teamNameCheck.data.message==="Team name already exist"){
@@ -222,7 +222,7 @@ export default function CustomizedDialogs({ eventDetails }) {
   const handleSubmit = async (values) => {
     setSubmitLoader(true);
 
-    const response = await axios.post(`/api/registeruser/${eventDetails.eventCode}`, { ...values }, { withCredentials: true }).catch((err) => {
+    const response = await axios.post(`http://localhost:5000/api/registeruser/${eventDetails.eventCode}`, { ...values }, { withCredentials: true }).catch((err) => {
       console.log("Error while updating", err);
     })
     if (response && response.data) {
@@ -232,7 +232,7 @@ export default function CustomizedDialogs({ eventDetails }) {
     }
 
 
-    const userData = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
+    const userData = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true }).catch((err) => {
       console.log("Not properly authenticated", err);
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));
@@ -252,7 +252,7 @@ export default function CustomizedDialogs({ eventDetails }) {
 
     setSubmitLoader(true);
 
-    const response = await axios.post(`/api/directregister/${eventDetails.eventCode}`,{email:user.email}, { withCredentials: true }).catch((err) => {
+    const response = await axios.post(`http://localhost:5000/api/directregister/${eventDetails.eventCode}`,{email:user.email}, { withCredentials: true }).catch((err) => {
       console.log("Error while updating", err);
     })
     if (response && response.data) {
@@ -262,7 +262,7 @@ export default function CustomizedDialogs({ eventDetails }) {
     }
 
 
-    const userData = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
+    const userData = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true }).catch((err) => {
       console.log("Not properly authenticated", err);
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));
@@ -282,7 +282,7 @@ export default function CustomizedDialogs({ eventDetails }) {
   const handleTeamSubmit = async(values) => {
     setSubmitLoader(true);
 
-    const response = await axios.post(`/api/registerteam/${eventDetails.eventCode}`, { ...values }, { withCredentials: true }).catch((err) => {
+    const response = await axios.post(`http://localhost:5000/api/registerteam/${eventDetails.eventCode}`, { ...values }, { withCredentials: true }).catch((err) => {
       console.log("Error while updating", err);
     })
     if (response && response.data) {
@@ -291,7 +291,7 @@ export default function CustomizedDialogs({ eventDetails }) {
       }
     }
 
-    const userData = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
+    const userData = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true }).catch((err) => {
       console.log("Not properly authenticated", err);
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));

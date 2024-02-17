@@ -36,18 +36,14 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  whatsappNumber:{
-    type: DataTypes.STRING,
-    allowNull:true,
-  },
-  githubUsername:{
-    type: DataTypes.STRING,
-    allowNull:true,
-  },
   isOrganiser:{
     type: DataTypes.BOOLEAN,
     allowNull:false,
     defaultValue:false,
+  },
+  eventInputs:{
+    type: DataTypes.JSON,
+    allowNull:true
   }
 });
 

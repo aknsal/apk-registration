@@ -10,7 +10,7 @@ const EventUserJuction = require("../models/eventUserJunction");
 const router = express.Router();
 
 router.post("/addevent", isUserAdmin, async (req,res) => {
-    let {eventName, date, organiser1, organiser2, organiser3, rounds, totalParticipants, about, prizes,image1URL, image2URL, category ,eventCode, teamSize, whatsappNumber, githubUsername} = req.body;
+    let {eventName, date, organiser1, organiser2, organiser3, rounds, about, prizes,image1URL, image2URL, category ,eventCode, teamSize, mode } = req.body;
     
     if(req.body.organiser2==""){
         organiser2 = null;
@@ -33,72 +33,83 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
     const image1 = image1URL;
     const image2 = image2URL;
 
+
+    const newEvent = new Event({eventName, date, organiser1,organiser2,organiser3, rounds, about, prizes, image1, image2, category, eventCode,teamSize, mode});
+    const savedEvent = await newEvent.save().catch((err) => {
+        console.log("Error saving event: ",err);
+        res.status(500).json({error: "Cannot save event at the moment"});
+        return;
+    })
+
+    if(organiser1 && organiser1!==""){
+        await User.update({isOrganiser:true},{
+            where:{
+                username:organiser1
+            }
+        }).catch(err => console.log("Error making user organiser"))
+    }
+    if(organiser2 && organiser2!==""){
+        await User.update({isOrganiser:true},{
+            where:{
+                username:organiser2
+            }
+        }).catch(err => console.log("Error making user organiser"))
+    }
+    if(organiser3 && organiser3!==""){
+        await User.update({isOrganiser:true},{
+            where:{
+                username:organiser3
+            }
+        }).catch(err => console.log("Error making user organiser"))
+    }
+
     const inputDetails = await Input.findAll().catch(err => console.log("Error getting inputs",err));
 
+
+
+
     if(inputDetails){
-        const newEvent = new Event({eventName, date, organiser1,organiser2,organiser3, rounds, totalParticipants, about, prizes, image1, image2, category, eventCode,teamSize});
-        const savedEvent = await newEvent.save().catch((err) => {
-            console.log("Error saving event: ",err);
-            res.status(500).json({error: "Cannot save event at the moment"});
-            return;
+
+
+        inputDetails.map(instance => {
+            if (req.body.hasOwnProperty(instance.get('inputVar')) && req.body[instance.get('inputVar')]){
+                savedEvent.addInput(instance).catch((err) => console.log("Error referencing input to event", err))
+            }
+            console.log(instance.get('inputVar'));
         })
-        if(organiser1 && organiser1!==""){
-            await User.update({isOrganiser:true},{
-                where:{
-                    username:organiser1
-                }
-            }).catch(err => console.log("Error making user organiser"))
-        }
-        if(organiser2 && organiser2!==""){
-            await User.update({isOrganiser:true},{
-                where:{
-                    username:organiser2
-                }
-            }).catch(err => console.log("Error making user organiser"))
-        }
-        if(organiser3 && organiser3!==""){
-            await User.update({isOrganiser:true},{
-                where:{
-                    username:organiser3
-                }
-            }).catch(err => console.log("Error making user organiser"))
-        }
-// complete individual input
-        if(whatsappNumber && savedEvent){
-            const whatsappNumberInput = await Input.findOne({
-                where:{
-                    inputVar:"whatsappNumber"
-                }
-            }).catch((err) => console.log("Error getting whatsapp input", err))
-
-            
-            if(whatsappNumberInput){
-                await savedEvent.addInput(whatsappNumberInput).catch((err) => console.log("Error adding inputs to events", err));
-            }
-        }
-
-        if(githubUsername && savedEvent){
-            const githubUsernameInput = await Input.findOne({
-                where:{
-                    inputVar:"githubUsername"
-                }
-            }).catch((err) => console.log("Error getting github username input", err))
-
-            
-            if(githubUsernameInput){
-                await savedEvent.addInput(githubUsernameInput).catch((err) => console.log("Error adding inputs to events", err));
-            }
-        }
         
-        const result = await Event.findOne({
-            where:{
-                eventName: savedEvent.eventName,
-            }
-        }).catch(err => console.log("Error getting Result", err));
-        console.log("Got the result", result);
-        if(result){
-            res.status(200).json({result});
-        }
+// complete individual input
+
+
+
+
+        // if(whatsappNumber && savedEvent){
+        //     const whatsappNumberInput = await Input.findOne({
+        //         where:{
+        //             inputVar:"whatsappNumber"
+        //         }
+        //     }).catch((err) => console.log("Error getting whatsapp input", err))
+
+            
+        //     if(whatsappNumberInput){
+        //         await savedEvent.addInput(whatsappNumberInput).catch((err) => console.log("Error adding inputs to events", err));
+        //     }
+        // }
+
+        // if(githubUsername && savedEvent){
+        //     const githubUsernameInput = await Input.findOne({
+        //         where:{
+        //             inputVar:"githubUsername"
+        //         }
+        //     }).catch((err) => console.log("Error getting github username input", err))
+
+            
+        //     if(githubUsernameInput){
+        //         await savedEvent.addInput(githubUsernameInput).catch((err) => console.log("Error adding inputs to events", err));
+        //     }
+        // }
+        
+        res.status(200).send("Success")
     }
     else{
         res.status(500).send("Internal Server Error");

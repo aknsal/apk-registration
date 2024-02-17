@@ -57,7 +57,15 @@ const Event = sequelize.define("Event", {
   teamSize:{
     type: DataTypes.STRING,
     allowNull:false,
-  }
+  },
+  location: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  mode: {
+    type: DataTypes.ENUM('online', 'offline'),
+    allowNull: false,
+  },
   
 });
 

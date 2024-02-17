@@ -8,6 +8,12 @@ const TextfieldWrapper = ({
 }) => {
   const [field, mata] = useField(name);
 
+  // if(field.form){
+  //   const waringMessage = field.form.organiserWarning
+  //   console.log(waringMessage);
+  // }
+ 
+
   const configTextfield = {
     ...field,
     ...otherProps,

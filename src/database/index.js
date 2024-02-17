@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASS,
   {
-    host: "sql6.freemysqlhosting.net",
+    host: "localhost",
     port:"3306",
     dialect: "mysql",
     // ssl:true,
@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
   },
 );
 
-sequelize.sync();
+sequelize.sync({alter:true});
 
 (async () => {
   try {

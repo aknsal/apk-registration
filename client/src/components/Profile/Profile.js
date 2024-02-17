@@ -45,7 +45,7 @@ export default function Profile() {
  
 
   const checkAvailabilityUsername = async (username) =>{
-    const getUser = await axios.get(`/api/getuser/${username}`).catch(err=>console.log("Error checking username",err))
+    const getUser = await axios.get(`http://localhost:5000/api/getuser/${username}`).catch(err=>console.log("Error checking username",err))
     if(getUser){
       if(getUser.data.message==="user not exist"){
         return true;
@@ -81,51 +81,17 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [college, setCollege] = useState("");
-  // const [whatsappNumber, setWhatsappNumber] = useState("");
-  // const [githubUsername, setGithubUsername] = useState("");
 
-  // if (user && name == "") {
-  //   // setName(user.fullName);
-  //   // setEmail(user.email);
-  //   // if (user.isRegistered) {
-  //   //   setUsername(user.username);
-  //   // }
-  //   // if (user.college) {
-  //   //   setCollege(user.college);
-  //   // }
-  //   // if (user.whatsappNumber) {
-  //   //   setCollege(user.whatsappNumber);
-  //   // }
-  //   // if (user.githubUsername) {
-    //   //   setCollege(user.githubUsername);
-    //   // }
-    //   console.log(user.fullName);
-    //   INITIAL_FORM_STATE.name = user.fullName;
-    // }
     
   const dispatch = useDispatch();
   const handleSubmit = async (values) => {
-
-    // if(user.college===""){
-    //   setCollege(null);
-    // }
-    // if(user.whatsappNumber===""){
-    //   setWhatsappNumber(null);
-    // }
-    // if(user.githubUsername===""){
-    //   setGithubUsername(null);
-    // }
 
     setSubmitLoader(true);
 
     const googleId = user.googleId;
 
 
-    const response = await axios.patch("/api/updateprofile", { ...values, googleId }, { withCredentials: true }).catch((err) => {
+    const response = await axios.patch("http://localhost:5000/api/updateprofile", { ...values, googleId }, { withCredentials: true }).catch((err) => {
       console.log("Error while updating", err);
     })
     if (response && response.data) {
@@ -133,7 +99,7 @@ export default function Profile() {
         console.log("Record Updated Successfully");
       }
     }
-    const userData = await axios.get("/api/auth/user", { withCredentials: true }).catch((err) => {
+    const userData = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true }).catch((err) => {
       console.log("Not properly authenticated", err);
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));
@@ -184,7 +150,7 @@ export default function Profile() {
                 <Textfield name="email" label="Email" disabled />
               </Grid>
 
-              <Grid item xs = {12} lg={6} >
+              {/* <Grid item xs = {12} lg={6} >
                 {user && user.username ? <Textfield disabled name="username" label="Username" /> : <Textfield required name="username" label="Username" helperText={
                   <>
                   Contains only letters, numbers, _ and .
@@ -195,7 +161,7 @@ export default function Profile() {
                 </>
                 } />}
                 
-              </Grid>
+              </Grid> */}
 
               <Grid item xs = {12} lg={6} >
                 <Textfield  name="whatsappNumber" label="Whatsapp Number" />

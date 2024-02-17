@@ -7,15 +7,20 @@ import "./AddEvent.css"
 import CircularProgress from '@mui/material/CircularProgress';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import { useNavigate } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import Textfield from "../formUI/Textfield"
+import CustomCheckbox from "../formUI/CustomCheckbox"
+import toast, { Toaster } from 'react-hot-toast';
 
 const useStyles = makeStyles(theme => ({
     root: {
         "& .MuiFormLabel-root": {
             color: "#9e9e9e" // or black
         },
-        "& $notchedOutline": {
-            borderColor: "#9e9e9e"
-        }
+        // "& $notchedOutline": {
+        //     borderColor: "#9e9e9e"
+        // }
     }
 }));
 
@@ -37,6 +42,17 @@ const categories = [
         value: 'Blockchain',
         label: 'Blockchain',
     },
+];
+
+const modes = [
+    {
+        value: 'online',
+        label: 'Online',
+    },
+    {
+        value: 'offline',
+        label: 'Offline',
+    }
 ];
 
 const teamSizes = [
@@ -79,6 +95,31 @@ const totalRounds = [
 
 export default function AddEvent() {
     const classes = useStyles();
+
+
+    const INITIAL_FORM_STATE = {
+        eventName: '',
+        eventCode: '',
+        about: '',
+        teamSize: 1,
+        rounds: 1,
+        category: 'Development',
+        mode: 'online',
+        date: '', // Placeholder for the date field
+        prizes: '',
+        organiser1: '',
+        organiser2: '',
+        organiser3: '',
+
+        // Do not change the below variable names... 
+        // They are checked in the backend to match the inputs in the input table
+        contactNumber: false,
+        githubID: false,
+        liChessID: false,
+        
+        
+    }
+
     const [eventName, setEventName] = useState("");
     const [eventCode, setEventCode] = useState("");
     const [about, setAbout] = useState("");
@@ -86,21 +127,21 @@ export default function AddEvent() {
     const [teamSize, setTeamSize] = useState(1);
     const [rounds, setRounds] = useState(1);
     const [prizes, setPrizes] = useState("");
-    const [organiser1, setOrganiser1] = useState("");
-    const [organiser1Error, setOrganiser1Error] = useState(false);
-    const [organiser1Success, setOrganiser1Success] = useState(false);
-    const [organiser1Loader, setOrganiser1Loader] = useState(false);
-    const [organiser1ErrorMessage, setOrganiser1ErrorMessage] = useState("");
-    const [organiser2, setOrganiser2] = useState("");
-    const [organiser2Error, setOrganiser2Error] = useState(false);
-    const [organiser2Success, setOrganiser2Success] = useState(false);
-    const [organiser2Loader, setOrganiser2Loader] = useState(false);
-    const [organiser2ErrorMessage, setOrganiser2ErrorMessage] = useState("");
-    const [organiser3, setOrganiser3] = useState("");
-    const [organiser3Error, setOrganiser3Error] = useState(false);
-    const [organiser3Success, setOrganiser3Success] = useState(false);
-    const [organiser3Loader, setOrganiser3Loader] = useState(false);
-    const [organiser3ErrorMessage, setOrganiser3ErrorMessage] = useState("");
+    // const [organiser1, setOrganiser1] = useState("");
+    // const [organiser1Error, setOrganiser1Error] = useState(false);
+    // const [organiser1Success, setOrganiser1Success] = useState(false);
+    // const [organiser1Loader, setOrganiser1Loader] = useState(false);
+    // const [organiser1ErrorMessage, setOrganiser1ErrorMessage] = useState("");
+    // const [organiser2, setOrganiser2] = useState("");
+    // const [organiser2Error, setOrganiser2Error] = useState(false);
+    // const [organiser2Success, setOrganiser2Success] = useState(false);
+    // const [organiser2Loader, setOrganiser2Loader] = useState(false);
+    // const [organiser2ErrorMessage, setOrganiser2ErrorMessage] = useState("");
+    // const [organiser3, setOrganiser3] = useState("");
+    // const [organiser3Error, setOrganiser3Error] = useState(false);
+    // const [organiser3Success, setOrganiser3Success] = useState(false);
+    // const [organiser3Loader, setOrganiser3Loader] = useState(false);
+    // const [organiser3ErrorMessage, setOrganiser3ErrorMessage] = useState("");
     const [date, setDate] = useState("");
     const [selectedImage1, setSelectedImage1] = useState('');
     const [imagePublicId1, setImagePublicId1] = useState('');
@@ -123,7 +164,7 @@ export default function AddEvent() {
 
 
     // useEffect(async() => {
-    //     const inputDataObj = await axios.get("/api/getinput", {withCredentials:true}).catch((err)=> 
+    //     const inputDataObj = await axios.get("http://localhost:5000/api/getinput", {withCredentials:true}).catch((err)=> 
     //     console.log("Error getiing input Details",err)
     //     )
     //     if(inputDataObj){
@@ -150,17 +191,16 @@ export default function AddEvent() {
     }
 
     const uploadImage1 = async () => {
-        console.log(selectedImage1);
         setImageLoad1(true);
         const formData = new FormData();
         formData.append("file", selectedImage1);
         formData.append("upload_preset", "Aparoksha");
         axios.post("https://api.cloudinary.com/v1_1/dm7azk7jr/image/upload", formData).then((res) => {
 
-            console.log(res);
             setImagePublicId1(res.data.public_id);
             setImage1URL(res.data.secure_url);
             setImageLoad1(false);
+            console.log(res.data);
 
         }).catch((err) => {
             console.log(err);
@@ -169,14 +209,12 @@ export default function AddEvent() {
     }
 
     const uploadImage2 = async () => {
-        console.log(selectedImage2);
         setImageLoad2(true);
         const formData = new FormData();
         formData.append("file", selectedImage2);
         formData.append("upload_preset", "Aparoksha");
         axios.post("https://api.cloudinary.com/v1_1/dm7azk7jr/image/upload", formData).then((res) => {
 
-            console.log(res);
             setImagePublicId2(res.data.public_id);
             setImage2URL(res.data.secure_url);
             setImageLoad2(false);
@@ -187,92 +225,254 @@ export default function AddEvent() {
         })
     }
 
-    const handleOrg1Click = async () => {
-        setOrganiser1Loader(true);
-        const response = await axios.get(`/api/getuser/${organiser1}`).catch((err) => console.log("Error getting user"))
-        console.log("got Organiser result", response);
+
+    const checkOrganiser = async (organiser) => {
+        const response = await axios.get(`http://localhost:5000/api/getuser/${organiser}`).catch((err) => console.log("Error getting user"))
         if (response && response.data) {
             if (response.data.isRegistered) {
-                setOrganiser1Error(false);
-                setOrganiser1ErrorMessage("");
-                setOrganiser1Success(true);
+                return 'valid organiser'
             }
             if (!response.data.isRegistered) {
-                setOrganiser1Error(true);
-                setOrganiser1ErrorMessage("User has not Registered")
+                return 'Organiser not registered'
             }
-            if (response.data.isRegistered && !response.data.whatsappNumber) {
-                setOrganiser1Error(true);
-                setOrganiser1ErrorMessage("User has not Entered Mobile Number");
+            if (response.data.isRegistered && !response.data.contactNumber) {
+                return 'Organiser does not have a contact number'
             }
         }
-        setOrganiser1Loader(false);
+        return 'Some error Occurred'
     }
 
-    const handleOrg2Click = async () => {
-        setOrganiser2Loader(true);
-        const response = await axios.get(`/api/getuser/${organiser2}`).catch((err) => console.log("Error getting user"))
-        console.log("got Organiser result", response);
-        if (response && response.data) {
-            if (response.data.isRegistered) {
-                setOrganiser2Error(false);
-                setOrganiser2ErrorMessage("");
-                setOrganiser2Success(true);
-            }
-            if (!response.data.isRegistered) {
-                setOrganiser2Error(true);
-                setOrganiser2ErrorMessage("User has not Registered")
-            }
-            if (response.data.isRegistered && !response.data.whatsappNumber) {
-                setOrganiser2Error(true);
-                setOrganiser2ErrorMessage("User has not Entered Mobile Number");
-            }
-        }
-        setOrganiser2Loader(false);
-    }
-
-    const handleOrg3Click = async () => {
-        setOrganiser3Loader(true);
-        const response = await axios.get(`/api/getuser/${organiser3}`).catch((err) => console.log("Error getting user"))
-        console.log("got Organiser result", response);
-        if (response && response.data) {
-            if (response.data.isRegistered) {
-                setOrganiser3Error(false);
-                setOrganiser3ErrorMessage("");
-                setOrganiser3Success(true);
-            }
-            if (!response.data.isRegistered) {
-                setOrganiser3Error(true);
-                setOrganiser3ErrorMessage("User has not Registered")
-            }
-            if (response.data.isRegistered && !response.data.whatsappNumber) {
-                setOrganiser3Error(true);
-                setOrganiser3ErrorMessage("User has not Entered Mobile Number");
-            }
-        }
-        setOrganiser3Loader(false);
-    }
-
-
-    const handleSubmit = async () => {
+    const handleSubmitForm = async (values) => {
         setSubmitLoaderFinal(true);
-        console.log(eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername);
-        const response = await axios.post("/api/addevent", { eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, image1URL, image2URL, eventCode, whatsappNumber, githubUsername }, { withCredentials: true }).catch((err) => {
+        console.log(values);
+
+        // SetRequiredFields
+        
+
+
+        const {eventName, about, category, teamSize, rounds, prizes, organiser1, organiser2, organiser3, date, eventCode, whatsappNumber, githubUsername} = values
+        
+
+        console.log({...values, image1URL, image2URL});
+        const response = await axios.post("http://localhost:5000/api/addevent", {...values, image1URL, image2URL}, { withCredentials: true }).catch((err) => {
             console.log("There was a problem adding event", err);
+            toast.error("Error adding event: ", err)
+            setSubmitLoaderFinal(false);
         });
         if (response) {
             console.log("Event added successfully", response);
+            toast.success("Event added successfully")
             navigate("/events");
         }
         setSubmitLoaderFinal(false);
     }
 
+    const organiserRule = Yup.string().test("organiser", async function (organiser, {createError, path}){
+        if(!organiser || organiser==='') return true;
+        console.log(organiser);
+        const message = await checkOrganiser(organiser)
+        console.log(message);
+        if(message==='valid organiser'){
+            return true;
+        }
+        return createError({
+            path,
+            message: message,
+        })
+    }) 
+
+    const FORM_VALIDATION = Yup.object().shape({
+        organiser1: organiserRule,
+        organiser2: organiserRule,
+        organiser3: organiserRule
+      })
+
     return (
         <div className='add-event-super-container'>
+            <Toaster 
+                toastOptions={{
+                    // Define default options
+                    className: '',
+                    duration: 5000,
+                    style: {
+                      background: '#363636',
+                      color: '#fff',
+                    },
+                  }}
+            />
             <Paper className='add-event-container'>
 
 
-                <Typography className='add-event-container-heading' variant="h3">Add event</Typography>
+                <Formik
+                    initialValues={{
+                        ...INITIAL_FORM_STATE
+                    }}
+                    onSubmit={handleSubmitForm}
+                    validationSchema={FORM_VALIDATION}
+                    validateOnChange={false}
+                    validateOnBlur={false}
+                >
+
+                    <Form>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Textfield name='eventName' label="Event Name" required />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Textfield name='eventCode' label="Event Code" required />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Textfield name='about' label="About" required multiline rows={5} />
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <Textfield select name='teamSize' label="Teamsize" >
+                                        {teamSizes.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                                </Textfield>
+                            </Grid>
+
+                            <Grid item xs={12} lg={6} md={6}>
+                                <Textfield select name='rounds' label="Rounds" >
+                                        {totalRounds.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                                </Textfield>
+                            </Grid>
+
+                            <Grid item xs={12} lg={6} md={6}>
+                                <Textfield select name='category' label="Category" >
+                                        {categories.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                                </Textfield>
+                            </Grid>
+
+                            <Grid item xs={12} lg={6} md={6}>
+                                <Textfield select name='mode' label="Mode" >
+                                        {modes.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                                </Textfield>
+                            </Grid>
+
+                            <Grid item xs={12} lg={6} md={6}>
+                                <Textfield type='date' name='date' placeholder="" required />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Textfield name='prizes' label='Prizes' multiline rows={3} />
+                            </Grid>
+
+                            <Grid item xs={12} lg={4} md={3}>
+                                <FormGroup>
+                                    <CustomCheckbox name='contactNumber' label='Number' />
+                                </FormGroup>
+                            </Grid>
+                            <Grid item xs={12} lg={4} md={6}>
+                                <FormGroup>
+                                    <CustomCheckbox name='githubID' label='Github ID' />
+                                </FormGroup>
+                            </Grid>
+
+                            <Grid item xs={12} lg={4} md={6}>
+                                <FormGroup>
+                                    <CustomCheckbox name='liChessID' label='LiChess ID' />
+                                </FormGroup>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Textfield name='organiser1' label="Organiser 1" required />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Textfield name='organiser2' label="Organiser 2"  />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Textfield name='organiser3' label="Organiser 3"  />
+                            </Grid>
+
+
+
+                    
+                    <Grid item xs={12} lg={2} md = {2} sm={3}>
+
+                    <Button
+                        variant="outlined"
+                        component="label"
+                        style={{ marginRight: 5 }}
+                    >
+                        Choose Image 1
+                        <input
+                            type="file"
+                            onChange={(e) => setSelectedImage1(e.target.files[0])}
+                            hidden
+                        />
+                    </Button>
+                    </Grid>
+                    <Grid item xs={12} lg={2} md = {2} sm={3}>
+                    {selectedImage1 ? <Typography style={{ marginRight: 5, marginTop:6  }}>{selectedImage1.name}</Typography> : null}
+                    </Grid>
+                    <Grid item xs={12} lg={2} md = {2} sm={6}>
+                    <Button color='success' variant='outlined' onClick={uploadImage1}>
+                        Upload That
+                        {imageLoad1 ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null}
+                    </Button>
+                    </Grid>
+
+                    <Grid item xs={12} lg={6} md = {6} sm={12}>
+                    <Image style={{ width: 350 }} cloudName="dm7azk7jr" publicId={imagePublicId1} />
+                    </Grid>
+
+            
+
+                    <Grid item xs={12} lg={2} md = {2} sm={3} >
+                    <Button
+                        variant="outlined"
+                        component="label"
+                        style={{ marginRight: 5 }}
+                    >
+                        Choose Image 2
+                        <input
+                            type="file"
+                            onChange={(e) => setSelectedImage2(e.target.files[0])}
+                            hidden
+                        />
+                    </Button>
+                    </Grid>
+
+                    <Grid item xs={12} lg={2} md = {2} sm={3} >
+                    {selectedImage2 ? <Typography style={{ marginRight: 5, marginTop:6 }}>{selectedImage2.name}</Typography> : null}
+                    </Grid>
+                    <Grid item xs={12} lg={2} md = {2} sm={6} >
+                    <Button color='success' variant='outlined' onClick={uploadImage2}>
+                        Upload That
+                        {imageLoad2 ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null}
+                    </Button>
+                    </Grid>
+
+                    <Grid item xs={12} lg={6} md = {6} sm={12} >
+                    <Image style={{ width: 350 }} cloudName="dm7azk7jr" publicId={imagePublicId2} />
+                    </Grid>
+
+                            <Grid item xs={12}>
+                                <Button fullWidth variant='contained' size='large' type='submit' color='success'>
+                                    Submit
+                                </Button>
+                            </Grid>
+                        </Grid> 
+                    </Form>
+                </Formik>
+
+
+                {/* <Typography className='add-event-container-heading' variant="h3">Add event</Typography>
                 <hr />
                 <TextField required id="outlined-basic" label="Event Name" fullWidth margin="normal" variant="outlined" value={eventName} onChange={(e) => { setEventName(e.target.value) }} />
 
@@ -285,7 +485,6 @@ export default function AddEvent() {
                     label="About"
                     fullWidth
                     rows={3}
-                    maxRows={4}
                     value={about}
                     onChange={(e) => { setAbout(e.target.value) }}
                 />
@@ -338,7 +537,6 @@ export default function AddEvent() {
                     label="Prizes"
                     fullWidth
                     rows={5}
-                    maxRows={4}
                     value={prizes}
                     onChange={(e) => { setPrizes(e.target.value) }}
                 />
@@ -349,8 +547,8 @@ export default function AddEvent() {
 
                     <FormControlLabel control={<Checkbox checked={githubUsername} onChange={() => setGithubUsername((val) => !val)} />} label="Github Username" />
 
-                </FormGroup>
-                <div className="add-event-organizer">
+                </FormGroup> */}
+                {/* <div className="add-event-organizer">
                     <TextField required margin='normal' error={organiser1Error} helperText={organiser1ErrorMessage} label="Organizer 1" InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -379,10 +577,10 @@ export default function AddEvent() {
                         ),
                     }} fullWidth value={organiser3} onChange={e => { setOrganiser3(e.target.value); setOrganiser3Success(false) }} />
                     <Button style={{ marginLeft: 15 }} variant='outlined' color="success" onClick={handleOrg3Click} > Check {organiser3Loader ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null}  </Button>
-                </div>
+                </div> */}
                 
 
-                <div className='upload-image-1-container'>
+                {/* <div className='upload-image-1-container'>
 
                     <Button
                         variant="outlined"
@@ -434,7 +632,7 @@ export default function AddEvent() {
 
                 <div className='add-event-submit-button-container'>
                     <Button variant='contained' color='success' size='large' onClick={handleSubmit} > Submit {submitLoaderFinal ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null} </Button>
-                </div>
+                </div> */}
             </Paper>
         </div>
     )
