@@ -73,7 +73,7 @@ export default function EventAboutContainer({ eventDetails }) {
           <Typography variant='h4'>About</Typography>
         </div>
         <hr />
-        <div className='event-about-container-text'>
+        <div className='event-about-container-text ' style={{ whiteSpace: 'pre-line' }}>
           {eventDetails.about}
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function EventAboutContainer({ eventDetails }) {
         </div>
         <hr />
         <div className='event-about-container-text'>
-          <Typography> {eventDetails.prizes} </Typography>
+          <Typography style={{ whiteSpace: 'pre-line' }}> {eventDetails.prizes} </Typography>
 
         </div>
       </div>

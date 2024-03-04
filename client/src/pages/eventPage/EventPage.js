@@ -18,17 +18,21 @@ export default function EventPage() {
 
   const user = useSelector(state => state.app.authUser);
 
-  useEffect(async()=>{
-    setIsLoading(true);
-    const response = await axios.get(`http://localhost:5000/api/getevent/${eventCodeOb.eventCode}`).catch((err) => {
-      console.log(`Error Getting Event ${eventCodeOb.eventCode}`, err);
-    });
+  
 
-    if (response && response.data) {
-      setEventDetails(response.data.event)
+  useEffect(()=>{
+    async function getEventDetails() {
+      setIsLoading(true);
+      const response = await axios.get(`http://localhost:5000/api/getevent/${eventCodeOb.eventCode}`).catch((err) => {
+        console.log(`Error Getting Event ${eventCodeOb.eventCode}`, err);
+      });
+      if (response && response.data) {
+        setEventDetails(response.data.event)
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  },[])
+    getEventDetails() //gets the event data and updates the states
+  },[eventCodeOb])
 
   useEffect(async() => {
     if(eventDetails && user){

@@ -71,11 +71,13 @@ export default function CustomizedDialogs({ eventDetails }) {
   const [isTeamEvent, setIsTeamEvent] = React.useState(false);
   const [eventTeamSize, setEventTeamSize] = React.useState(0);
   const [eventInputs, setEventInputs] = React.useState([])
-  const [initialFormState, setInitialFormState] = React.useState({})
-  const [initialFormStateTeam, setInitialFormStateTeam] = React.useState({})
 
-  let INITIAL_FORM_STATE = {
+  // const INITIAL_FORM_STATE = {
+  //   whatsappNumber:"",
+  // }
+  const INITIAL_FORM_STATE = {
   }
+  // console.log("Event Details", eventDetails );
 
   if (user && !userLoaded && Object.keys(eventDetails).length !== 0) {
     setUserLoaded(true);
@@ -83,24 +85,39 @@ export default function CustomizedDialogs({ eventDetails }) {
       setIsTeamEvent(true);
       setEventTeamSize(parseInt(eventDetails.teamSize));
     }
+    console.log(eventDetails);
     const requiredEventInputs = []
     eventDetails.Inputs.forEach(element => {
       const inputVar = element.inputVar;
       const inputName = element.inputName;
+      // console.log(user.eventInputs['githubID']);
       if(!user.eventInputs || !user.eventInputs[inputVar]){
         INITIAL_FORM_STATE[inputVar] = ''
         requiredEventInputs.push({inputVar: inputVar, value: '', inputName: inputName})
+        
+
       }
       else{
         INITIAL_FORM_STATE[inputVar] = user.eventInputs[inputVar]
         requiredEventInputs.push({inputVar: inputVar, value:user.eventInputs[inputVar], inputName: inputName})
+        
       }
     });
 
+    console.log(INITIAL_FORM_STATE);
     setEventInputs(requiredEventInputs)
-    setInitialFormState(INITIAL_FORM_STATE)
 
+    // if (eventDetails.Inputs.find(ele => ele.inputVar === 'whatsappNumber') && !user.whatsappNumber) {
+    //   setIsWhatsappNumberReq(true);
+    //   setAreDetailsRequired(true);
+    // }
+
+    // if (eventDetails.Inputs.find(ele => ele.inputVar === 'githubUsername') && !user.githubUsername) {
+    //   setIsGithubUsernameReq(true);
+    //   setAreDetailsRequired(true);
+    // }
   }
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -313,6 +330,7 @@ export default function CustomizedDialogs({ eventDetails }) {
     console.log(values);
   }
 
+  console.log(INITIAL_FORM_STATE, eventInputs);
 
 
   return (
@@ -345,14 +363,21 @@ open={open}
         Fill Team Details
       </BootstrapDialogTitle>
       <DialogContent dividers>
+
+
+
+
+
         <Grid container spacing={4} >
-            <Grid item xs={12} lg={12} >
-              <Textfield name="teamName" label="Team Name"  />
+
+              <Grid item xs={12} lg={12} >
+                <Textfield name="teamName" label="Team Name"  />
             </Grid> 
 
             <Grid item xs={12} lg={12} >
-              <Textfield disabled name="username0" label="Participant 0"  />
+                <Textfield disabled name="username0" label="Participant 0"  />
             </Grid> 
+
 
             {eventTeamSize > 1 ? 
             <Grid item xs={12} lg={12} >
@@ -368,15 +393,31 @@ open={open}
             <Grid item xs={12} lg={12} >
                 <Textfield name="username3" label="Participant 3" />
             </Grid>  : null }
+
+            {isWhatsappNumberReq ?
+              <Grid item xs={12} lg={12} >
+                <Textfield name="whatsappNumber" label="Whatsapp Number" />
+              </Grid> : null}
+
+              {isgithubUsernameReq ?
+              <Grid item xs={12} lg={12} >
+                <Textfield name="githubUsername" label="Github Username" />
+              </Grid> : null}
+
+
+
         </Grid>
         <div className='profile-button-container'>
 
         </div>
 
+
       </DialogContent>
       <DialogActions>
         <Button variant='contained' type="submit" color="success" size="large"> Submit {submitloader ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null} </Button>
       </DialogActions>
+
+
 
     </Form>
 
@@ -384,7 +425,7 @@ open={open}
 </BootstrapDialog>
 :
     <div>
-      {eventInputs && initialFormState ?
+      {eventInputs ?
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -394,7 +435,7 @@ open={open}
           <Formik
             enableReinitialize={true}
             initialValues={{
-              ...initialFormState
+              ...INITIAL_FORM_STATE
             }}
             validationSchema={FORM_VALIDATION}
             validateOnChange={false}
@@ -410,6 +451,7 @@ open={open}
 
 
                 <Grid container spacing={4} >
+
                       {
                         eventInputs.map(eventInput => (
                           <Grid item xs={12} lg={12}>
@@ -417,9 +459,15 @@ open={open}
                           </Grid>
                         ))
                       }
+
+
+
                 </Grid>
                 <div className='profile-button-container'>
+
                 </div>
+
+
               </DialogContent>
               <DialogActions>
                 <Button variant='contained' type="submit" color="success" size="large"> Submit {submitloader ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null} </Button>

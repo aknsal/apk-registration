@@ -16,30 +16,40 @@ router.post("/registeruser/:eventCode" , async (req,res) =>{
         include: Input
     }).catch((err) => console.log("Error getting event while registering user"))
 
-    if(event){
-        if(event.Inputs.find(ele => ele.inputVar === 'whatsappNumber') && req.body.whatsappNumber==="" && req.user.whatsappNumber==="" ){
-            res.status(404).json({"message":"whatsapp Number required"})
-            return
-        }
+    // if(event){
+    //     if(event.Inputs.find(ele => ele.inputVar === 'whatsappNumber') && req.body.whatsappNumber==="" && req.user.whatsappNumber==="" ){
+    //         res.status(404).json({"message":"whatsapp Number required"})
+    //         return
+    //     }
 
-        if(event.Inputs.find(ele => ele.inputVar === 'githubUsername') && req.body.githubUsername==="" && req.user.githubUsername==="" ){
-            res.status(404).json({"message":"Github Username required"})
-            return
-        }
-        // complete other inputs
-    }
+    //     if(event.Inputs.find(ele => ele.inputVar === 'githubUsername') && req.body.githubUsername==="" && req.user.githubUsername==="" ){
+    //         res.status(404).json({"message":"Github Username required"})
+    //         return
+    //     }
+    //     // complete other inputs
+    // }
 
     const updateObject = {}
 
-    if(event.Inputs.find(ele => ele.inputVar === 'githubUsername') && req.user.githubUsername===""){
-        updateObject.githubUsername = req.body.githubUsername;
-    }
-    if(event.Inputs.find(ele => ele.inputVar === 'whatsappNumber') && req.user.whatsappNumber===""){
-        updateObject.whatsappNumber = req.body.whatsappNumber;
+    event.Inputs.map(element => {
+        inputVar = element.inputVar
+        if(!req.body[inputVar] || req.body[inputVar]===''){
+            res.status(400).json({"message": "Some error occured"})
+        }
+        updateObject[inputVar] = req.body[inputVar]
+    })
+
+    // if(event.Inputs.find(ele => ele.inputVar === 'githubUsername') && req.user.githubUsername===""){
+    //     updateObject.githubUsername = req.body.githubUsername;
+    // }
+    // if(event.Inputs.find(ele => ele.inputVar === 'whatsappNumber') && req.user.whatsappNumber===""){
+    //     updateObject.whatsappNumber = req.body.whatsappNumber;
+    // }
+    if(!req.user||!req.user.email){
+        res.status(401).json({"message":"User not authenticated"})
     }
 
-
-    const response = await User.update(updateObject, {
+    const response = await User.update({eventInputs:updateObject}, {
         where: {
           email: req.user.email,
         }
@@ -55,7 +65,6 @@ router.post("/registeruser/:eventCode" , async (req,res) =>{
         await event.addUser(getUser).catch((err) => console.log("Error Registering user for event", err));
 
         res.status(200).json({"message":"User registered for event"})
-
       }
       else{
         res.status(500).json({"message": "Could not Update User record"})

@@ -27,7 +27,6 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
 
     if (alreadyExistsEvent) {
         return res.status(409).json({ message: "Event with same name Already Exist" });
-        
     }
 
     const image1 = image1URL;
@@ -66,10 +65,7 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
     const inputDetails = await Input.findAll().catch(err => console.log("Error getting inputs",err));
 
 
-
-
     if(inputDetails){
-
 
         inputDetails.map(instance => {
             if (req.body.hasOwnProperty(instance.get('inputVar')) && req.body[instance.get('inputVar')]){

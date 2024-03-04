@@ -229,6 +229,9 @@ export default function AddEvent() {
     const checkOrganiser = async (organiser) => {
         const response = await axios.get(`http://localhost:5000/api/getuser/${organiser}`).catch((err) => console.log("Error getting user"))
         if (response && response.data) {
+            if(response.data.message==='user not exist'){
+                return 'User not exist'
+            }
             if (response.data.isRegistered) {
                 return 'valid organiser'
             }
@@ -271,10 +274,11 @@ export default function AddEvent() {
         if(!organiser || organiser==='') return true;
         console.log(organiser);
         const message = await checkOrganiser(organiser)
-        console.log(message);
+        console.log(this.options);
         if(message==='valid organiser'){
             return true;
         }
+        // if(message==='')
         return createError({
             path,
             message: message,
@@ -310,7 +314,7 @@ export default function AddEvent() {
                     onSubmit={handleSubmitForm}
                     validationSchema={FORM_VALIDATION}
                     validateOnChange={false}
-                    validateOnBlur={false}
+                    validateOnBlur={true}
                 >
 
                     <Form>
