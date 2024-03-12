@@ -79,7 +79,7 @@ export default function EventList() {
         </div>
       </div>
 
-      {/* <div className='event-list-category-section'>
+      <div className='event-list-category-section'>
         <div className='event-list-category-heading'> <Typography variant='h6'>Coding</Typography> </div>
         <hr />
         <div className='event-list-category-items'>
@@ -123,10 +123,10 @@ export default function EventList() {
             }
           </Grid>
         </div>
-      </div> */}
+      </div>
 
       <div className='event-list-category-section'>
-        <div className='event-list-category-heading'> <Typography variant='h6'>Blockchain</Typography> </div>
+        <div className='event-list-category-heading'> <Typography variant='h6'>Miscellaneous</Typography> </div>
         <hr />
         <div className='event-list-category-items'>
           <Grid container spacing={3}>
@@ -134,7 +134,7 @@ export default function EventList() {
               allEventsOb ?
                 allEventsOb.allEvents.map((event) => {
                   
-                  if(event.category==="Blockchain"){
+                  if(event.category==="Miscellaneous"){
                     return <Grid key={event.id} item xs={12} sm={6} md={4} lg={3} >
                     <EventCard id={event.id} eventName={event.eventName} image={event.image1} eventCode={event.eventCode} />
                   </Grid>

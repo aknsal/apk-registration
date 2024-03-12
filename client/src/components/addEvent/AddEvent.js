@@ -39,8 +39,8 @@ const categories = [
         label: 'Coding',
     },
     {
-        value: 'Blockchain',
-        label: 'Blockchain',
+        value: 'Miscellaneous',
+        label: 'Miscellaneous',
     },
 ];
 
