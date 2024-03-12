@@ -44,7 +44,7 @@ router.get("/getuser/:username", async (req,res) => {
       username: req.params.username
     }
   }).catch(err => console.log("Error getting user info", err))
-  console.log("Got the user/ or not", response);
+  console.log("Got the user/ or not", response.get('email'));
   if(response){
     res.status(200).json(response)
   }

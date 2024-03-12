@@ -70,7 +70,7 @@ const user = useSelector(state => state.app.authUser);
               </div>
               :
               <RegisterFirst />
-            }
+              }
                 </div>
               :
               <div>

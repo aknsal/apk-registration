@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import "./EventAboutContainer.css"
+import OrganiserView from '../../organiserView/OrganiserView';
 
 export default function EventAboutContainer({ eventDetails }) {
 
@@ -85,11 +86,11 @@ export default function EventAboutContainer({ eventDetails }) {
         <hr />
         <div className='event-about-container-text'>
           <Typography style={{ whiteSpace: 'pre-line' }}> {eventDetails.prizes} </Typography>
-
         </div>
       </div>
 
-      {user && user.isOrganiser && participantList ? 
+      <OrganiserView>
+      { participantList ? 
       <div className='event-about-container-section'>
       <div className='event-about-container-heading'>
         <Typography variant='h4'>Participants</Typography>
@@ -106,6 +107,10 @@ export default function EventAboutContainer({ eventDetails }) {
     </div>  
     :null
     }
+      
+      </OrganiserView>
+
+      
       
     </div>
   )

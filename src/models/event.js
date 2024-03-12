@@ -52,7 +52,7 @@ const Event = sequelize.define("Event", {
   },
   eventCode:{
     type: DataTypes.STRING,
-    allowNull : false,
+    allowNull : false
   },
   teamSize:{
     type: DataTypes.STRING,

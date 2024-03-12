@@ -61,7 +61,7 @@ export default function RegisterFirst() {
 
   return (
     <div>
-      <Button variant="contained" color='success' onClick={handleClickOpen}>
+      <Button variant="contained" color='primary' onClick={handleClickOpen}>
         Register
       </Button>
       <BootstrapDialog

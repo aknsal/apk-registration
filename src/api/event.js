@@ -6,6 +6,7 @@ const { isUserAuthenticated, isUserAdmin, isUserOrganiser } = require("../middle
 const EventInputJuction = require("../models/eventInputJunction");
 const { default: axios } = require("axios");
 const EventUserJuction = require("../models/eventUserJunction");
+const novu = require("../notifications/notification")
 
 const router = express.Router();
 
@@ -74,36 +75,15 @@ router.post("/addevent", isUserAdmin, async (req,res) => {
             console.log(instance.get('inputVar'));
         })
         
-// complete individual input
+        
+        // Create a topic where all the subscribers will get notified
 
-
-
-
-        // if(whatsappNumber && savedEvent){
-        //     const whatsappNumberInput = await Input.findOne({
-        //         where:{
-        //             inputVar:"whatsappNumber"
-        //         }
-        //     }).catch((err) => console.log("Error getting whatsapp input", err))
-
-            
-        //     if(whatsappNumberInput){
-        //         await savedEvent.addInput(whatsappNumberInput).catch((err) => console.log("Error adding inputs to events", err));
-        //     }
-        // }
-
-        // if(githubUsername && savedEvent){
-        //     const githubUsernameInput = await Input.findOne({
-        //         where:{
-        //             inputVar:"githubUsername"
-        //         }
-        //     }).catch((err) => console.log("Error getting github username input", err))
-
-            
-        //     if(githubUsernameInput){
-        //         await savedEvent.addInput(githubUsernameInput).catch((err) => console.log("Error adding inputs to events", err));
-        //     }
-        // }
+        const result = await novu.topics.create({
+            key: eventCode,
+            name: eventName,
+        }).catch((err) => {console.log("Error occured while adding a topic", err?.response?.data?.message)});
+        
+        console.log(result);
         
         res.status(200).send("Success")
     }

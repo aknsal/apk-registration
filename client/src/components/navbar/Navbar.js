@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setAuthUser, setIsAuthenticated } from '../../redux/appSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import NotificationCenterComp from '../notificationCenter/NotificationCenter';
 const pages = ['Dashboard', 'Events'];
 const settings = [{name: 'Profile', link:"/profile"}, {name : 'Dashboard', link:"/dashboard"}, {name : 'Logout', link:"http://localhost:5000/api/logout"}];
 
@@ -156,7 +157,7 @@ const ResponsiveAppBar = () => {
           >
             <img src={logo} height="40px" />
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', paddingRight: 3 }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', paddingRight: 1 }}>
 
             {
               user?
@@ -178,7 +179,10 @@ const ResponsiveAppBar = () => {
             </Button>
           </Box>
           {user ?
-            <Box sx={{ flexGrow: 0 }}>
+            
+            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', alignItems:'center', paddingRight: 1 }}>
+              <NotificationCenterComp />
+              <div style={{width:10}}></div>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt={user.email} src={user.picture} />

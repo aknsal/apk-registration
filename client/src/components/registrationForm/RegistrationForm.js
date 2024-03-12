@@ -444,7 +444,7 @@ open={open}
           <Typography>Are you sure you want to register</Typography>
         </DialogContent>
         <DialogActions>
-          <Button variant='contained' type="submit" onClick={handleDirectRegister} color="success" size="large"> Submit {submitloader ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null} </Button>
+          <Button variant='contained' type="submit" onClick={handleDirectRegister} color="primary" size="large"> Submit {submitloader ? <CircularProgress style={{ marginLeft: 8 }} size="1rem" /> : null} </Button>
         </DialogActions>
       </BootstrapDialog>
         }

@@ -4,7 +4,9 @@ const User = require("../models/user");
 const Event = require("../models/event");
 const Input = require("../models/input");
 const EventUserJuction = require("../models/eventUserJunction");
+const {Novu} = require("@novu/node")
 
+const novu = new Novu(process.env.NOVU_API_KEY);
 
 const router = express.Router();
 
@@ -63,6 +65,13 @@ router.post("/registeruser/:eventCode" , async (req,res) =>{
         }).catch(err=>console.log("Error getting user",err))
         
         await event.addUser(getUser).catch((err) => console.log("Error Registering user for event", err));
+        
+        console.log(getUser.id)
+        const topicKey = event.get('eventCode')
+        const novuResponse = await novu.topics.addSubscribers(topicKey, {
+            subscribers: [getUser.id.toString()],
+          }).catch((err) => console.log("Error while addinf subscriber to topic", err?.response?.data));
+        console.log(novuResponse);
 
         res.status(200).json({"message":"User registered for event"})
       }
@@ -93,7 +102,11 @@ router.post("/directregister/:eventCode", async (req,res) => {
         }
     }).catch(err=>console.log("Error getting user",err))
 
-
+    const topicKey = event.get('eventCode')
+    const novuResponse = await novu.topics.addSubscribers(topicKey, {
+        subscribers: [getUser.id.toString()],
+        }).catch((err) => console.log("Error while addinf subscriber to topic", err?.response?.data));
+    console.log(novuResponse);
     await event.addUser(getUser).catch((err) => console.log("Error Registering user for event", err));
     res.status(200).json({"message":"User registered for event"})
 

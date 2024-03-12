@@ -1,45 +1,75 @@
-# Express API Starter
+# Eventory
 
-Includes API Server utilities:
+Eventory is a web application built to streamline event management and participation.
 
-* [morgan](https://www.npmjs.com/package/morgan)
-  * HTTP request logger middleware for node.js
-* [helmet](https://www.npmjs.com/package/helmet)
-  * Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
-* [dotenv](https://www.npmjs.com/package/dotenv)
-  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`
+## Features
 
-Development utilities:
+- **Event Listing:** Organizations can easily list and showcase their events with detailed information.
+- **Participant Registration:** Seamless registration process for participants interested in joining events.
+- **Participant Tracking:** Keep track of registered users for each event.
+- **User-friendly Interface:** Intuitive design for a smooth user experience.
+- **In App and Email notifications:** Send timely notifications to participants regarding event updates.
 
-* [nodemon](https://www.npmjs.com/package/nodemon)
-  * nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-* [eslint](https://www.npmjs.com/package/eslint)
-  * ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-* [mocha](https://www.npmjs.com/package/mocha)
-  * ☕️ Simple, flexible, fun JavaScript test framework for Node.js & The Browser ☕️
-* [supertest](https://www.npmjs.com/package/supertest)
-  * HTTP assertions made easy via superagent.
+## Tech Stack
 
-## Setup
+- **Frontend:** React, Redux
+- **Backend:** Node.js, Express
+- **Database:** MySQL
 
-```
+## Setup Locally
+
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/)
+- [MySQL](https://www.mysql.com/)
+
+### Setup
+
+run your mysql server and add the host and port in `src/database/index.js`
+
+
+```bash
+# clone the repository
+git clone https://github.com/your-username/eventory.git
+cd eventory
+
+# install dependencies
 npm install
 ```
 
-## Lint
-
-```
-npm run lint
-```
-
-## Test
-
-```
-npm run test
+run your mysql server and add the host and port in `src/database/index.js`
+Now start the backend server
+```bash
+# start the server
+npm start
 ```
 
-## Development
+Navigate to client folder and install dependencies
+```bash
+cd client
 
+# install dependencies
+npm install
+
+# run frontend
+npm start
 ```
-npm run dev
-```
+
+
+
+**Important Note:**
+
+This project requires environment variables to function properly. Please create a copy of the `.env.example` file named `.env` and configure it with your own details. 
+
+The `.env.example` file provides a template with placeholders for each environment variable. Refer to the comments within the file for guidance on what information to provide.
+
+**Example Environment Variables:**
+
+* `DB_NAME`: Name of your database
+* `DB_USER`: Username for your database access
+* `DB_PASS`: Password for your database access
+* ... (similar explanations for other variables)
+
+

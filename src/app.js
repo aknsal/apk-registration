@@ -15,6 +15,7 @@ require("./models/event");
 require("./models/input");
 require("./models/eventInputJunction");
 require("./models/eventUserJunction");
+require('./models/eventUpdate')
 
 const middlewares = require("./middlewares");
 const api = require("./api");
